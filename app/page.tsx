@@ -4,107 +4,123 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { colors } from "@/components/style/theme";
+import {
+  SparklesIcon,
+  PenToolIcon,
+  UsersIcon,
+  CalendarIcon,
+  HeartIcon,
+  AwardIcon,
+} from "lucide-react";
+import { API_ENDPOINTS, BASE_URL, TOKEN_KEY } from "@/lib/constants/constants";
+import { getItem } from "@/lib/localStorage";
+import { toast } from "react-toastify";
+import { apiCall } from "@/api/fetchData";
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollContainerRef = useRef(null);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [topShayaris, setTopShayaris] = useState([]);
+  const [topPoets,setTopPoets] =useState([])
 
-  // Hero slides data for poets and readers
+  console.log("topPoets",topPoets)
+
   const heroSlides = [
     {
-      title: "Unleash Your Inner Shayar",
-      subtitle: "A stage for poets to shine",
+      title: "Shayriमंच – A Stage for Every Poet",
+      subtitle: "जहाँ हर शब्द एहसास बन जाता है",
       description:
-        "Step into the spotlight, share your shayari, and become the next poetic star.",
+        "Express your emotions through words, share your shayari, and let the world feel your poetry.",
       image: "/images/poet-star.svg",
       color: colors.darkPurple,
     },
     {
-      title: "Dive into Shayari Bliss",
-      subtitle: "Explore emotions in verse",
+      title: "Dive into the World of Shayari",
+      subtitle: "हर जज़्बात के लिए एक शायरी",
       description:
-        "Read heart-touching shayaris—heartbreak, motivation, humor, and more.",
+        "Read soulful poetry—love, heartbreak, inspiration, humor, and more, only on Shayriमंच.",
       image: "/images/shayari-reader.svg",
       color: colors.darkPink,
     },
     {
-      title: "Be the Voice of a Nation",
-      subtitle: "Earn titles that echo",
+      title: "Let Your Words Make History",
+      subtitle: "बनें 'Shayar of the Month' या 'Poet of the Year'",
       description:
-        "Rise to 'Shayar of the Month' or 'Poet of the Year' with your words.",
+        "Shayriमंच gives you the platform to rise, shine, and earn prestigious titles with your poetry.",
       image: "/images/poet-award.svg",
       color: "#5E60CE",
     },
   ];
 
-  // Sample top shayaris data
-  const topShayaris = [
-    {
-      id: 1,
-      text: "Dil ke zakhm chhupaaye baitha hoon,\nTere bina bhi jeeye ja raha hoon.",
-      poet: "Mirza Aadil",
-      category: "Heartbreak",
-      likes: 1245,
-      poetLink: "/poets/mirza-aadil",
-    },
-    {
-      id: 2,
-      text: "Zindagi ek safar hai suhana,\nHar kadam pe hai nayaa thikana.",
-      poet: "Neha Sharma",
-      category: "Motivational",
-      likes: 987,
-      poetLink: "/poets/neha-sharma",
-    },
-    {
-      id: 3,
-      text: "Hansi se dard chhupa liya,\nDuniya ko bewakoof bana diya.",
-      poet: "Rahul Khan",
-      category: "Funny",
-      likes: 876,
-      poetLink: "/poets/rahul-khan",
-    },
-    {
-      id: 4,
-      text: "Mohabbat mein junoon hai mera,\nHar saans tera naam le mera.",
-      poet: "Sana Qureshi",
-      category: "Love",
-      likes: 754,
-      poetLink: "/poets/sana-qureshi",
-    },
-  ];
+ 
 
   // Top poets data
-  const topPoets = [
+  // const topPoets = [
+  //   {
+  //     id: 1,
+  //     name: "Mirza Aadil",
+  //     likes: 5421,
+  //     country: "India",
+  //     profileLink: "/poets/mirza-aadil",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Neha Sharma",
+  //     likes: 4890,
+  //     country: "India",
+  //     profileLink: "/poets/neha-sharma",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "John Keats Jr.",
+  //     likes: 4500,
+  //     country: "USA",
+  //     profileLink: "/poets/john-keats-jr",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Sana Qureshi",
+  //     likes: 4200,
+  //     country: "Pakistan",
+  //     profileLink: "/poets/sana-qureshi",
+  //   },
+  // ];
+
+  const testimonials = [
     {
-      id: 1,
-      name: "Mirza Aadil",
-      likes: 5421,
-      country: "India",
-      profileLink: "/poets/mirza-aadil",
+      quote:
+        "Shayri मंच transformed my poetry journey with its supportive community and innovative tools!",
+      author: "Neha Patel",
+      role: "Aspiring Poet",
     },
     {
-      id: 2,
-      name: "Neha Sharma",
-      likes: 4890,
-      country: "India",
-      profileLink: "/poets/neha-sharma",
+      quote:
+        "The monthly challenges and virtual events keep me inspired and connected to poets worldwide.",
+      author: "Sameer Khan",
+      role: "Published Poet",
     },
     {
-      id: 3,
-      name: "John Keats Jr.",
-      likes: 4500,
-      country: "USA",
-      profileLink: "/poets/john-keats-jr",
-    },
-    {
-      id: 4,
-      name: "Sana Qureshi",
-      likes: 4200,
-      country: "Pakistan",
-      profileLink: "/poets/sana-qureshi",
+      quote:
+        "A platform that truly understands the soul of Shayari and nurtures creativity.",
+      author: "Priyanka Das",
+      role: "Poetry Enthusiast",
     },
   ];
 
+  const quickStats = [
+    { icon: UsersIcon, value: "10K+", label: "Poets" },
+    { icon: PenToolIcon, value: "50K+", label: "Poems" },
+    { icon: HeartIcon, value: "1M+", label: "Likes" },
+  ];
+
+  const featuredPoem = {
+    title: "Whispers of the Soul",
+    author: "Arjun Mehra",
+    excerpt:
+      "In the silence of the night, my heart speaks, a melody of stars, a whisper of dreams...",
+    link: "#",
+  };
   // Autoplay for hero slides
   useEffect(() => {
     const interval = setInterval(() => {
@@ -112,6 +128,47 @@ export default function Home() {
     }, 5000);
     return () => clearInterval(interval);
   }, [heroSlides.length]);
+
+
+  async function fetchPoetries() {
+    try {
+      const response = await apiCall({
+        method: "GET",
+        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=10`,
+        headers: {
+          Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
+        },
+      });
+      setTopShayaris(response.data || []);
+    } catch (error) {
+      console.error("Failed to fetch poetries:", error);
+      toast.error("Failed to load poetries");
+    } finally {
+    }
+  }
+
+  
+
+   const fetchTopPoets = async () => {
+      try {
+        const response = await apiCall({
+          method: "GET",
+          url: `${BASE_URL}/top-poets/monthly`,
+          headers: {
+            Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
+          },
+        });
+       
+        setTopPoets(response.data);
+      } catch (error) {
+        console.error(`Error fetching top poets for monthly:`, error);
+      }
+    };
+
+  useEffect(() => {
+    fetchPoetries();
+    fetchTopPoets()
+  }, []);
 
   return (
     <main className="pt-16   text-white">
@@ -121,7 +178,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="w-full lg:w-1/2 z-10">
               <h1 className="roboto roboto-eight text-4xl md:text-5xl lg:text-6xl mb-4">
-                Poet
+                Shayri
                 <span
                   className="ml-2"
                   style={{
@@ -130,11 +187,12 @@ export default function Home() {
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  Arena
+                  मंच
                 </span>
               </h1>
               <p className="roboto roboto-five text-xl text-gray-300 mb-6">
-                Where words weave emotions and poets rise to stardom
+                A place where poetry finds its voice, और शायर को मिलता है उसका
+                मंच।
               </p>
               <div className="relative h-64 mb-8">
                 {heroSlides.map((slide, index) => (
@@ -248,7 +306,7 @@ export default function Home() {
           >
             {topShayaris?.map((shayari, index) => (
               <div
-                key={shayari.id}
+                key={index}
                 className="min-w-[300px] max-w-[300px] snap-start rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-xl"
                 style={{
                   background:
@@ -275,10 +333,13 @@ export default function Home() {
                           : "none",
                     }}
                   >
-                    {shayari.text}
+                    <div
+                      className="text-gray-300 mb-4 poetry-content"
+                      dangerouslySetInnerHTML={{ __html: shayari?.content }}
+                    />
                   </p>
                   <p className="roboto roboto-four text-sm text-gray-300">
-                    - {shayari.poet}
+                    - {shayari.posterName}
                   </p>
                   <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-700">
                     <div className="flex items-center gap-1">
@@ -293,7 +354,7 @@ export default function Home() {
                       <span className="text-gray-300">{shayari.likes}</span>
                     </div>
                     <Link
-                      href={shayari.poetLink}
+                      href={`poetry/${shayari._id}`}
                       className="text-sm roboto roboto-five"
                       style={{ color: colors.darkPink }}
                     >
@@ -306,14 +367,14 @@ export default function Home() {
           </div>
           <div className="text-center mt-10">
             <Link
-              href="/explore"
+              href="/poetry"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full roboto roboto-five text-white transition-transform hover:scale-105"
               style={{
                 background: `linear-gradient(90deg, ${colors.darkPurple}, ${colors.darkPink})`,
                 boxShadow: `0 4px 14px rgba(106, 90, 205, 0.25)`,
               }}
             >
-              <span>Explore All Shayaris</span>
+              <span>Post & Explore Shayaris</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -343,9 +404,9 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {topPoets.map((poet) => (
+            {topPoets.map((poet,index) => (
               <div
-                key={poet.id}
+                key={index}
                 className="bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all"
                 style={{ border: `1px solid ${colors.lightPurple}33` }}
               >
@@ -356,20 +417,20 @@ export default function Home() {
                   }}
                 >
                   <span className="text-4xl text-white flex items-center justify-center h-full">
-                    {poet.name[0]}
+                    {poet.fullName[0]}
                   </span>
                 </div>
                 <h3 className="roboto roboto-six text-xl text-white mb-2">
-                  {poet.name}
+                  {poet.fullName}
                 </h3>
-                <p className="roboto roboto-four text-gray-400 mb-2">
+                {/* <p className="roboto roboto-four text-gray-400 mb-2">
                   {poet.country}
-                </p>
+                </p> */}
                 <p className="roboto roboto-five text-yellow-400">
-                  {poet.likes} Likes
+                  {poet.totalLikes} Likes
                 </p>
                 <Link
-                  href={poet.profileLink}
+                  href={poet.fullName}
                   className="inline-block mt-4 text-sm roboto roboto-five"
                   style={{ color: colors.darkPink }}
                 >
@@ -382,142 +443,170 @@ export default function Home() {
       </section>
 
       {/* Benefits for New Shayars */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="w-full lg:w-1/2">
-              <span
-                className="inline-block px-4 py-1 rounded-full mb-4 text-sm"
-                style={{
-                  background: `${colors.lightPurple}30`,
-                  color: colors.darkPurple,
-                }}
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div className="container mx-auto px-4 py-16">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <p className="text-sm text-gray-400 mb-2">For Aspiring Poets</p>
+            <h1 className="text-5xl md:text-6xl py-2 font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+              Rise as the Next Shayari Star
+            </h1>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-6">
+              Share your verses, connect with fans, and turn your passion into a
+              legacy.
+            </p>
+            <button
+              className="
+              bg-gradient-to-r from-purple-600 to-pink-600 
+              text-white font-bold py-4 px-8 rounded-full 
+              text-xl hover:from-purple-700 hover:to-pink-700 
+              transition-all duration-300 transform hover:scale-105
+              shadow-lg hover:shadow-2xl
+            "
+            >
+              Start Your Journey
+            </button>
+          </div>
+
+          {/* Benefits Section */}
+          <div className="grid md:grid-cols-4 gap-6 mb-16">
+            {[
+              {
+                icon: SparklesIcon,
+                title: "Showcase Talent",
+                desc: "Post your shayari and let the world admire your craft.",
+              },
+              {
+                icon: AwardIcon,
+                title: "Gain Recognition",
+                desc: "Earn titles like 'Shayar of the Month' or 'Poet of the Year'.",
+              },
+              {
+                icon: UsersIcon,
+                title: "Build a Fanbase",
+                desc: "Share your profile link and connect with poetry lovers.",
+              },
+              {
+                icon: CalendarIcon,
+                title: "Event Invites",
+                desc: "Get admired in poetry shows and live events by admirers.",
+              },
+            ].map((benefit, index) => (
+              <div
+                key={index}
+                className="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-all duration-300 hover:scale-105"
               >
-                For Aspiring Poets
-              </span>
-              <h2 className="roboto roboto-seven text-3xl md:text-4xl lg:text-5xl mb-6">
-                Rise as the Next
-                <span
-                  style={{
-                    background: `linear-gradient(90deg, ${colors.darkPurple}, ${colors.darkPink})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "inline-block",
-                  }}
-                  className="ml-2"
-                >
-                  Shayar Star
-                </span>
-              </h2>
-              <p className="roboto roboto-four text-gray-300 text-lg mb-8 max-w-xl">
-                Share your verses, connect with fans, and turn your passion into
-                a legacy.
+                <benefit.icon className="w-8 h-8 mb-4 text-purple-400" />
+                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                <p className="text-gray-300">{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Stats */}
+          {/* <div className="grid md:grid-cols-3 gap-6 mb-16">
+          {quickStats.map((stat, index) => (
+            <div
+              key={index}
+              className="bg-gray-800 p-6 rounded-xl text-center hover:scale-105 transition-transform"
+            >
+              <stat.icon className="w-10 h-10 mx-auto mb-4 text-pink-400" />
+              <h3 className="text-3xl font-bold">{stat.value}</h3>
+              <p className="text-gray-400">{stat.label}</p>
+            </div>
+          ))}
+        </div> */}
+
+          {/* Featured Poem */}
+          <div className="bg-gray-800 rounded-xl p-8 mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+              Featured Poem of the Week
+            </h2>
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                {featuredPoem.title}
+              </h3>
+              <p className="text-gray-400 mb-4">by {featuredPoem.author}</p>
+              <p className="text-gray-300 italic max-w-xl mx-auto mb-6">
+                "{featuredPoem.excerpt}"
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div
-                  className="p-4 rounded-xl"
-                  style={{
-                    background: `${colors.darkPurple}22`,
-                    border: `1px solid ${colors.lightPurple}33`,
-                  }}
-                >
-                  <h3 className="roboto roboto-six text-lg mb-2">
-                    Showcase Talent
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Post your shayaris and let the world admire your craft.
-                  </p>
-                </div>
-                <div
-                  className="p-4 rounded-xl"
-                  style={{
-                    background: `${colors.darkPink}22`,
-                    border: `1px solid ${colors.lightPink}33`,
-                  }}
-                >
-                  <h3 className="roboto roboto-six text-lg mb-2">
-                    Gain Recognition
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Earn titles like ‘Shayar of the Month’ or ‘Poet of the
-                    Year’.
-                  </p>
-                </div>
-                <div
-                  className="p-4 rounded-xl"
-                  style={{
-                    background: `${colors.darkPurple}22`,
-                    border: `1px solid ${colors.lightPurple}33`,
-                  }}
-                >
-                  <h3 className="roboto roboto-six text-lg mb-2">
-                    Build a Fanbase
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Share your profile link and connect with poetry lovers.
-                  </p>
-                </div>
-                <div
-                  className="p-4 rounded-xl"
-                  style={{
-                    background: `${colors.darkPink}22`,
-                    border: `1px solid ${colors.lightPink}33`,
-                  }}
-                >
-                  <h3 className="roboto roboto-six text-lg mb-2">
-                    Event Invites
-                  </h3>
-                  <p className="text-sm text-gray-400">
-                    Get invited to poetry shows and live events by admirers.
-                  </p>
+              <a
+                href={featuredPoem.link}
+                className="text-purple-400 hover:text-purple-300 underline"
+              >
+                Read Full Poem
+              </a>
+            </div>
+          </div>
+
+          {/* Testimonials Section */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div>
+              <h2 className="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-600">
+                Voices of Our Community
+              </h2>
+              <div className="bg-gray-800 rounded-xl p-6">
+                <p className="text-xl text-gray-300 italic mb-4">
+                  "{testimonials[activeTestimonial].quote}"
+                </p>
+                <p className="text-gray-400">
+                  - {testimonials[activeTestimonial].author},{" "}
+                  <span className="text-gray-500">
+                    {testimonials[activeTestimonial].role}
+                  </span>
+                </p>
+                <div className="flex justify-center mt-6 space-x-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-3 h-3 rounded-full ${
+                        activeTestimonial === index
+                          ? "bg-purple-400"
+                          : "bg-gray-600"
+                      }`}
+                      onClick={() => setActiveTestimonial(index)}
+                    />
+                  ))}
                 </div>
               </div>
-              <Link
-                href="/join-as-poet"
-                className="inline-flex items-center gap-2 mt-8 px-8 py-4 rounded-full text-white roboto roboto-five transition-all hover:scale-105"
-                style={{
-                  background: `linear-gradient(90deg, ${colors.darkPurple}, ${colors.darkPink})`,
-                  boxShadow: `0 8px 16px -4px ${colors.darkPurple}50`,
-                }}
-              >
-                <span>Start Your Journey</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </Link>
             </div>
-            <div className="w-full lg:w-1/2">
-              <div className="relative">
-                <div
-                  className="absolute -top-10 -left-10 w-48 h-48 rounded-full opacity-20 blur-3xl"
-                  style={{ background: colors.darkPurple }}
-                ></div>
-                <div
-                  className="bg-gray-800 p-6 rounded-xl shadow-xl"
-                  style={{ border: `2px solid ${colors.darkPink}33` }}
-                >
-                  <p className="roboto roboto-five text-lg text-white italic text-center">
-                    "Kalam se dil tak ka safar,\nShayariVerse banaye ek nayaa
-                    asar."
-                  </p>
-                  <p className="text-center text-gray-400 mt-4">
-                    - Your Name Here
-                  </p>
-                </div>
+            <div className="flex items-center justify-center">
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold mb-4">
+                  Join a Global Community
+                </h3>
+                <p className="text-gray-300 mb-6">
+                  Connect with poets from over 10+ countries, share your work,
+                  and grow together.
+                </p>
+                <button className="bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition-colors">
+                  Explore Community
+                </button>
               </div>
             </div>
           </div>
+
+          {/* Call to Action Banner */}
+          <div className="bg-gradient-to-r from-purple-700 to-pink-700 rounded-xl p-8 text-center">
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              Ready to Share Your Shayari?
+            </h2>
+            <p className="text-gray-200 mb-6">
+              Sign up today and start your journey to becoming the next Shayari
+              star.
+            </p>
+            <Link
+              href={"/auth/signup"}
+              className="
+              bg-white text-purple-700 font-bold py-3 px-8 rounded-full 
+              hover:bg-gray-100 transition-all duration-300 transform hover:scale-105
+            "
+            >
+              Sign Up Now
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

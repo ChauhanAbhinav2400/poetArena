@@ -11,6 +11,8 @@ export default function FilterBar({ filters, setFilters, value, onchange }) {
     { id: "Life", name: "Life" },
     { id: "Romance", name: "Romance" },
     { id: "Fantasy", name: "Fantasy" },
+    { id: "HeartBreak", name:"HeartBreak" },
+    
   ];
 
   return (

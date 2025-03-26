@@ -48,17 +48,13 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Explore</h3>
             <ul className="space-y-2">
-              {["Home", "Explore Shayaris", "Poets", "Submit"].map((item) => (
+              {[{label:"Home",link:"/"}, {label:"Poets",link:"/poets"},{label:"Explore Shayaris",link:"/poetry"}].map((item) => (
                 <li key={item}>
                   <Link
-                    href={`/${
-                      item === "Home"
-                        ? ""
-                        : item.toLowerCase().replace(" ", "-")
-                    }`}
+                    href={`/${item.link}`}
                     className="text-gray-400 hover:text-lightPurple transition-colors duration-200 text-sm"
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -69,7 +65,7 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Community</h3>
             <ul className="space-y-2">
-              {["About Us", "Awards", "Events"].map((item) => (
+              {["About Us", "Awards"].map((item) => (
                 <li key={item}>
                   <Link
                     href={`/${item.toLowerCase().replace(/ /g, "-")}`}

@@ -145,7 +145,7 @@ export default function PoetriesPage() {
   }
 
   return (
-    <div className="min-h-screen mt-16 bg-gray-900 text-gray-300">
+    <div className="min-h-screen mt-16  text-gray-300">
       {/* Header Section */}
       <div
         className="py-16"
@@ -156,7 +156,7 @@ export default function PoetriesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              PoetArena Community
+            Shayriमंच Community
             </h1>
             <p className="text-lg text-gray-200 mb-8">
               Dive into a world of poetry—read, share, and connect with fellow
@@ -173,7 +173,7 @@ export default function PoetriesPage() {
       </div>
 
       {/* Filter Section */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 ">
         <FilterBar
           filters={filters}
           setFilters={setFilters}

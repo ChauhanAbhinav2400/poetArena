@@ -80,14 +80,17 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto text-gray-300">
+    <div className="fixed inset-0  z-50 ">
+      <div className="absolute z-10 inset-0 w-full h-full  bg-black opacity-[0.6]">
+
+      </div>
+      <div className="absolute z-20  inset-0 w-full h-full flex items-center justify-center p-4">
+
+      <div className="bg-gray-800 rounded-xl max-w-2xl w-full  overflow-y-auto scollbar-hidden text-gray-300">
         <style>{editorStyles}</style>
         <div
           className="p-1"
-          style={{
-            background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
-          }}
+         
         ></div>
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -212,6 +215,8 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
             </div>
           </form>
         </div>
+      </div>
+      
       </div>
     </div>
   );

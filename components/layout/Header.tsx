@@ -32,7 +32,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Poetry", href: "/problem" },
+    { name: "Poetry", href: "/poetry" },
     { name: "Poets", href: "/poets" },
   ];
 
@@ -63,7 +63,7 @@ export default function Header() {
               className="absolute inset-2 rounded-full bg-white flex items-center justify-center font-bold text-lg"
               style={{ color: colors.darkPurple }}
             >
-              PA
+              
             </div>
           </div>
           <div className="hidden md:flex  items-center">
@@ -75,9 +75,10 @@ export default function Header() {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              PoetArena
+              
+              Shayriमंच
             </h1>
-            <span>📝🎯</span>
+      
           </div>
         </Link>
 
