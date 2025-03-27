@@ -14,6 +14,7 @@ import {
   FaPaypal,
   FaUser,
 } from "react-icons/fa";
+import { Edit } from "lucide-react";
 
 const PoetProfilePage = () => {
   const router = useRouter();
@@ -168,31 +169,42 @@ const PoetProfilePage = () => {
             <h2 className="text-3xl text-yellow-400 mb-6">All Poetries</h2>
             <div className="space-y-4">
               {poetries?.map((poetry) => (
-                <div
-                  key={poetry._id}
-                  onClick={() => setSelectedPoetry(poetry)}
-                  className={`p-4 rounded-lg cursor-pointer transition-all duration-300 
-                    ${
-                      selectedPoetry?._id === poetry._id
-                        ? "bg-yellow-400 text-gray-900"
-                        : "bg-gray-800 hover:bg-gray-700 text-white"
-                    }`}
-                >
-                  <h3 className="text-xl font-bold mb-1">{poetry.title}</h3>
-                  <p className="text-sm line-clamp-2 opacity-70">
-                    {poetry.content.replace(/<[^>]*>/g, "")}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm mt-2">
-                    <FaHeart
-                      className={
-                        selectedPoetry?._id === poetry._id
-                          ? "text-gray-900"
-                          : "text-yellow-400"
-                      }
-                    />
-                    {poetry.likes}
-                  </div>
-                </div>
+                 <div
+                 key={poetry._id}
+                 className={`p-4 rounded-lg cursor-pointer transition-all duration-300 relative
+                   ${
+                     selectedPoetry?._id === poetry._id
+                       ? "bg-yellow-400 text-gray-900"
+                       : "bg-gray-800 hover:bg-gray-700 text-white"
+                   }`}
+               >
+                 <div 
+                   className="absolute top-2 right-2 opacity-70 hover:opacity-100 transition-opacity"
+                  //  onClick={(e) => {
+                  //    e.stopPropagation(); // Prevent the parent div's onClick from firing
+                  //    onEdit(poetry);
+                  //  }}
+                 >
+                   <Edit className="w-5 h-5 cursor-pointer" />
+                 </div>
+                 
+                 <div onClick={() => setSelectedPoetry(poetry)}>
+                   <h3 className="text-xl font-bold mb-1">{poetry.title}</h3>
+                   <p className="text-sm line-clamp-2 opacity-70">
+                     {poetry.content.replace(/<[^>]*>/g, "")}
+                   </p>
+                   <div className="flex items-center gap-2 text-sm mt-2">
+                     <FaHeart
+                       className={
+                         selectedPoetry?._id === poetry._id
+                           ? "text-gray-900"
+                           : "text-yellow-400"
+                       }
+                     />
+                     {poetry.likes}
+                   </div>
+                 </div>
+               </div>
               ))}
             </div>
           </div>

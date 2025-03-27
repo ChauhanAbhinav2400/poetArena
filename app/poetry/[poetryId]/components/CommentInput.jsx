@@ -16,7 +16,7 @@ export default function CommentInput({ onSubmit, user }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-gray-800 rounded-xl shadow-md overflow-hidden"
+      className="bg-gray-900 rounded-xl shadow-md overflow-hidden"
     >
       <div className="p-4">
         <div className="flex items-center mb-4">

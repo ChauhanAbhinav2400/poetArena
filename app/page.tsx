@@ -328,7 +328,7 @@ export default function Home() {
                     style={{
                       fontStyle: index % 5 === 2 ? "italic" : "normal",
                       textShadow:
-                        index % 5 === 4
+                        index % 5 === 4 
                           ? "0 0 10px rgba(255,255,255,0.2)"
                           : "none",
                     }}
@@ -580,9 +580,9 @@ export default function Home() {
                   Connect with poets from over 10+ countries, share your work,
                   and grow together.
                 </p>
-                <button className="bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition-colors">
+                <Link  href={"/poets"} className="bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition-colors">
                   Explore Community
-                </button>
+                </Link>
               </div>
             </div>
           </div>

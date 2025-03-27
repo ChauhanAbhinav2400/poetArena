@@ -199,16 +199,17 @@ export default function SignupPage() {
           background: `linear-gradient(135deg, ${colors.darkPurple}aa, ${colors.darkPink}aa)`,
         }}
       >
-        <div>
-          <div
+        <div className="mt-4">
+          <Link
+              href="/"
             className="text-4xl font-bold py-3 relative overflow-hidden"
             style={{
               color: colors.lightPurple,
               textShadow: "2px 2px 4px rgba(128, 0, 128, 0.5)",
             }}
           >
-            Shayari<span className="text-neon-purple">Verse</span>
-          </div>
+            Shayri<span className="text-neon-purple">मंच</span>
+          </Link>
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Unleash Your Poetic Soul
           </h2>
@@ -286,7 +287,7 @@ export default function SignupPage() {
             className="text-3xl font-bold mb-6 text-center"
             style={{ color: colors.lightPurple }}
           >
-            {step === "details" ? "Join the Verse" : "Verify Your Email"}
+            {step === "details" ? "Join the Shayriमंच" : "Verify Your Email"}
           </h1>
 
           {step === "details" ? (
@@ -411,7 +412,7 @@ export default function SignupPage() {
                     opacity: loading ? 0.7 : 1,
                   }}
                 >
-                  {loading ? "Joining..." : "Join ShayariVerse"}
+                  {loading ? "Joining..." : "Join"}
                 </button>
               </div>
 
