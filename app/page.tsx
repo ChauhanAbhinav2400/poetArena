@@ -22,9 +22,9 @@ export default function Home() {
   const scrollContainerRef = useRef(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [topShayaris, setTopShayaris] = useState([]);
-  const [topPoets,setTopPoets] =useState([])
+  const [topPoets, setTopPoets] = useState([]);
 
-  console.log("topPoets",topPoets)
+  console.log("topPoets", topPoets);
 
   const heroSlides = [
     {
@@ -52,8 +52,6 @@ export default function Home() {
       color: "#5E60CE",
     },
   ];
-
- 
 
   // Top poets data
   // const topPoets = [
@@ -114,6 +112,11 @@ export default function Home() {
     { icon: HeartIcon, value: "1M+", label: "Likes" },
   ];
 
+  const getname = (name: string) => {
+    const poetNameSlug = name.toLowerCase().replace(/\s+/g, "-");
+    return poetNameSlug;
+  };
+
   const featuredPoem = {
     title: "Whispers of the Soul",
     author: "Arjun Mehra",
@@ -128,7 +131,6 @@ export default function Home() {
     }, 5000);
     return () => clearInterval(interval);
   }, [heroSlides.length]);
-
 
   async function fetchPoetries() {
     try {
@@ -147,31 +149,29 @@ export default function Home() {
     }
   }
 
-  
+  const fetchTopPoets = async () => {
+    try {
+      const response = await apiCall({
+        method: "GET",
+        url: `${BASE_URL}/top-poets/monthly`,
+        headers: {
+          Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
+        },
+      });
 
-   const fetchTopPoets = async () => {
-      try {
-        const response = await apiCall({
-          method: "GET",
-          url: `${BASE_URL}/top-poets/monthly`,
-          headers: {
-            Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
-          },
-        });
-       
-        setTopPoets(response.data);
-      } catch (error) {
-        console.error(`Error fetching top poets for monthly:`, error);
-      }
-    };
+      setTopPoets(response.data);
+    } catch (error) {
+      console.error(`Error fetching top poets for monthly:`, error);
+    }
+  };
 
   useEffect(() => {
     fetchPoetries();
-    fetchTopPoets()
+    fetchTopPoets();
   }, []);
 
   return (
-    <main className="pt-16   text-white">
+    <main className="pt-20  text-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 py-20">
         <div className="container mx-auto px-8">
@@ -195,7 +195,7 @@ export default function Home() {
                 मंच।
               </p>
               <div className="relative h-64 mb-8">
-                {heroSlides.map((slide, index) => (
+                {heroSlides?.map((slide, index) => (
                   <div
                     key={index}
                     className={`absolute top-0 left-0 w-full transition-all duration-700 ease-in-out ${
@@ -242,7 +242,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="flex gap-2 mt-4">
-                {heroSlides.map((_, index) => (
+                {heroSlides?.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveSlide(index)}
@@ -257,7 +257,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full lg:w-1/2 relative h-64 md:h-96">
-              {heroSlides.map((slide, index) => (
+              {heroSlides?.map((slide, index) => (
                 <div
                   key={index}
                   className={`absolute inset-0 transition-all duration-700 ease-in-out ${
@@ -301,13 +301,13 @@ export default function Home() {
           </div>
           <div
             ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-6 overflow-x-auto  pb-8 snap-x snap-mandatory scrollbar-hide"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {topShayaris?.map((shayari, index) => (
               <div
                 key={index}
-                className="min-w-[300px] max-w-[300px] snap-start rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-xl"
+                className="min-w-[350px] max-w-[350px] snap-start rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-xl"
                 style={{
                   background:
                     index % 5 === 0
@@ -339,7 +339,7 @@ export default function Home() {
                     />
                   </p>
                   <p className="roboto roboto-four text-sm text-gray-300">
-                    - {shayari.posterName}
+                    - {shayari?.posterName}
                   </p>
                   <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-700">
                     <div className="flex items-center gap-1">
@@ -354,7 +354,7 @@ export default function Home() {
                       <span className="text-gray-300">{shayari.likes}</span>
                     </div>
                     <Link
-                      href={`poetry/${shayari._id}`}
+                      href={`/poetry/${shayari._id}`}
                       className="text-sm roboto roboto-five"
                       style={{ color: colors.darkPink }}
                     >
@@ -404,7 +404,7 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {topPoets.map((poet,index) => (
+            {topPoets?.map((poet, index) => (
               <div
                 key={index}
                 className="bg-gray-800 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all"
@@ -423,14 +423,15 @@ export default function Home() {
                 <h3 className="roboto roboto-six text-xl text-white mb-2">
                   {poet.fullName}
                 </h3>
-                {/* <p className="roboto roboto-four text-gray-400 mb-2">
+                <p className="roboto roboto-four text-gray-400 mb-2">
                   {poet.country}
-                </p> */}
+                </p>
                 <p className="roboto roboto-five text-yellow-400">
                   {poet.totalLikes} Likes
                 </p>
+
                 <Link
-                  href={poet.fullName}
+                  href={`/poets/${getname(poet?.fullName)}?id=${poet._id}`}
                   className="inline-block mt-4 text-sm roboto roboto-five"
                   style={{ color: colors.darkPink }}
                 >

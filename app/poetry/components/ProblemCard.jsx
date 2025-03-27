@@ -52,7 +52,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
             : cardStyle === 1
             ? `radial-gradient(circle, ${colors.darkPink}cc, ${colors.darkPurple}cc)`
             : cardStyle === 2
-            ? `linear-gradient(to bottom, ${colors.darkPurple}dd, ${colors.lightPink})`
+            ? `radial-gradient(ellipse, ${colors.lightPurple}aa, ${colors.darkPurple}aa)`
             : cardStyle === 3
             ? `linear-gradient(45deg, ${colors.darkPink}bb, ${colors.darkPurple}bb)`
             : `radial-gradient(ellipse, ${colors.lightPurple}aa, ${colors.darkPurple}aa)`,
@@ -69,13 +69,13 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
           {type}
         </span>
       </div>
-      <Link href={`/problem/${poetry?._id}`}>
-        <h3 className="text-xl font-semibold text-white mb-2 hover:text-lightPurple transition-colors">
+      <Link href={`/poetry/${poetry?._id}`}>
+        <h3 className="text-xl font-semibold text-white mb-4 hover:text-lightPurple transition-colors">
           {title}
         </h3>
       </Link>
       <div
-        className="text-gray-300 mb-4 poetry-content"
+        className="text-gray-200 snap-start text-center text-lg mb-4 poetry-content"
         dangerouslySetInnerHTML={{ __html: content }}
       />
       <div className="flex items-center text-white text-sm mb-4">
@@ -109,7 +109,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
           </button>
 
           <Link
-            href={`/problem/${poetry?._id}`}
+            href={`/poetry/${poetry?._id}`}
             className="flex items-center space-x-1 text-gray-400"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -124,7 +124,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
         </div>
 
         <Link
-          href={`/problem/${poetry?._id}`}
+          href={`/poetry/${poetry?._id}`}
           className="text-sm font-medium hover:underline hover:text-white text-lightPurple "
         >
           Read More

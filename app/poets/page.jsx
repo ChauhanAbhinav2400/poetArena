@@ -118,7 +118,8 @@ const TopPoetsPage = () => {
     setActiveTab(tab);
   };
 
-  const handlePoetClick = (poetId) => {
+  const handlePoetClick = (poetId, name) => {
+    const poetNameSlug = name?.toLowerCase().replace(/\s+/g, "-");
     router.push(`/poets/${poetId}`);
   };
 
@@ -138,7 +139,10 @@ const TopPoetsPage = () => {
       </Tabs>
       <CardGrid>
         {poets?.map((poet) => (
-          <PoetCard key={poet._id} onClick={() => handlePoetClick(poet?._id)}>
+          <PoetCard
+            key={poet._id}
+            onClick={() => handlePoetClick(poet?._id, poet?.fullName)}
+          >
             <div className="flex justify-center items-center flex-col space-y-1">
               <div
                 className="w-24 h-24  flex rounded-full items-center justify-center text-4xl text-white"

@@ -126,7 +126,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <section className="py-12 mt-12 bg-gray-900 min-h-screen text-gray-300">
+    <section className="py-12 mt-20 bg-gray-900 min-h-screen text-gray-300">
       <div className="container mx-auto px-4">
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
