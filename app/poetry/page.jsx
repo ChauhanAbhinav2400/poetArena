@@ -153,10 +153,10 @@ export default function PoetriesPage() {
           background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
         }}
       >
-        <div className="container mx-auto px-4">
+        <div className="container  mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Shayriमंच Community
+              Shayriमंच Community
             </h1>
             <p className="text-lg text-gray-200 mb-8">
               Dive into a world of poetry—read, share, and connect with fellow
@@ -173,7 +173,7 @@ export default function PoetriesPage() {
       </div>
 
       {/* Filter Section */}
-      <div className="container mx-auto px-4 py-8 ">
+      <div className="container bg-gray-800 mx-auto px-4 py-8 ">
         <FilterBar
           filters={filters}
           setFilters={setFilters}
@@ -183,7 +183,7 @@ export default function PoetriesPage() {
       </div>
 
       {/* Poetries Grid */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container bg-gray-800 mx-auto px-4 py-8">
         {isLoading ? (
           <div className="flex justify-center py-20">
             <div

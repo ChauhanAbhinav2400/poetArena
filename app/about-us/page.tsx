@@ -87,7 +87,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-16 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen mt-20 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-6 py-16">
         {/* Header */}
         <div className="text-center mb-16">
@@ -155,11 +155,10 @@ const AboutUs = () => {
                 "Discover Your Poetic Voice",
                 "Monthly Poetry Challenges",
                 "Poet of the Month Recognition",
-                
+
                 "Supportive Community Feedback",
-                
+
                 "Virtual Poetry Events",
-                
               ].map((feature, index) => (
                 <li
                   key={index}
@@ -288,7 +287,7 @@ const AboutUs = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <Link
-          href={"/poetry"}
+            href={"/poetry"}
             className="
               bg-gradient-to-r from-purple-600 to-pink-600 
               text-white font-bold py-4 px-8 rounded-full 

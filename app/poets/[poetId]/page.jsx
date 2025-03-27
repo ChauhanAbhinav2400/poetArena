@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { apiCall } from "../../../api/fetchData";
 import { BASE_URL, TOKEN_KEY } from "../../../lib/constants/constants";
 import { getItem } from "../../../lib/localStorage";
@@ -17,18 +17,22 @@ import {
 
 const PoetProfilePage = () => {
   const router = useRouter();
-  const { poetId } = useParams();
+  const { poetId } = useParams(); // Get the poetName from the URL (e.g., "John-Doe")
+  const poetName = poetId;
+  const searchParams = useSearchParams(); // Get query parameters
+  const id = searchParams.get("id"); // Get the poetId from the query (e.g., "67e2db10433feabfa637dd32")
+  console.log(id, "id");
   const [poet, setPoet] = useState(null);
   const [poetries, setPoetries] = useState([]);
   const [selectedPoetry, setSelectedPoetry] = useState(null);
 
   useEffect(() => {
-    if (!poetId) return;
+    if (!id) return; // Ensure poetId exists
     const fetchPoetProfile = async () => {
       try {
         const poetResponse = await apiCall({
           method: "GET",
-          url: `${BASE_URL}/poet/${poetId}`,
+          url: `${BASE_URL}/poet/${id}`,
           headers: {
             Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
           },
@@ -37,7 +41,7 @@ const PoetProfilePage = () => {
 
         const poetryResponse = await apiCall({
           method: "GET",
-          url: `${BASE_URL}/poetry/user/${poetId}`,
+          url: `${BASE_URL}/poetry/user/${id}`,
           headers: {
             Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
           },
@@ -54,7 +58,7 @@ const PoetProfilePage = () => {
     };
 
     fetchPoetProfile();
-  }, [poetId]);
+  }, [id]);
 
   if (!poet)
     return (
@@ -64,7 +68,7 @@ const PoetProfilePage = () => {
     );
 
   return (
-    <div className="min-h-screen mt-16 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-12">
         {/* Profile Header */}
         <div className="grid md:grid-cols-[300px_1fr] gap-8 mb-12">
@@ -163,7 +167,7 @@ const PoetProfilePage = () => {
           <div>
             <h2 className="text-3xl text-yellow-400 mb-6">All Poetries</h2>
             <div className="space-y-4">
-              {poetries.map((poetry) => (
+              {poetries?.map((poetry) => (
                 <div
                   key={poetry._id}
                   onClick={() => setSelectedPoetry(poetry)}

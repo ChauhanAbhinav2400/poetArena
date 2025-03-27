@@ -47,13 +47,19 @@ export default function Header() {
           : `rgba(255, 255, 255, 0.4)`,
         backdropFilter: "blur(10px)",
         boxShadow: isScrolled ? "0 4px 20px rgba(0, 0, 0, 0.05)" : "none",
+        // boxShadow: isScrolled ? "none" : "none",
       }}
     >
       <div className="container px-4 mx-auto flex items-center justify-between">
         {/* Logo and Platform Name */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-10 rounded-full overflow-hidden">
-            <div
+          <div className="relative h-10 mb-4 w-50 self-center rounded-full object-contain">
+            <img
+              src="https://i.ibb.co/0pRgNZzR/Simple-attire-200-x-50-px-1.png"
+              alt="Simple-attire-200-x-50-px-1"
+              className=""
+            />
+            {/* <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: `linear-gradient(135deg, ${colors.darkPurple} 0%, ${colors.darkPink} 100%)`,
@@ -77,8 +83,7 @@ export default function Header() {
             >
               
               Shayriमंच
-            </h1>
-      
+            </h1> */}
           </div>
         </Link>
 
