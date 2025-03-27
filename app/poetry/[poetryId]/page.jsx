@@ -15,7 +15,7 @@ import { getItem } from "../../../lib/localStorage";
 import { colors } from "../../../components/style/theme";
 
 export default function PoetryDetailPage() {
-  const { problemId } = useParams();
+  const { poetryId } = useParams();
   const router = useRouter();
   const [poetry, setPoetry] = useState(null);
   const [comments, setComments] = useState([]);
@@ -25,14 +25,14 @@ export default function PoetryDetailPage() {
   useEffect(() => {
     fetchPoetryDetails();
     fetchComments();
-  }, [problemId]);
+  }, [poetryId]);
 
   async function fetchPoetryDetails() {
     try {
       setIsLoading(true);
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRY_BY_ID}/${problemId}`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRY_BY_ID}/${poetryId}`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -50,7 +50,7 @@ export default function PoetryDetailPage() {
     try {
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${problemId}/comments`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${poetryId}/comments`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -65,8 +65,8 @@ export default function PoetryDetailPage() {
     try {
       const endpoint =
         action === "like"
-          ? `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${problemId}/like`
-          : `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${problemId}/dislike`;
+          ? `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${poetryId}/like`
+          : `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${poetryId}/dislike`;
 
       await apiCall({
         method: "POST",
@@ -85,7 +85,7 @@ export default function PoetryDetailPage() {
     try {
       await apiCall({
         method: "POST",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${problemId}/comment`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${poetryId}/comment`,
         body: { text: content },
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,

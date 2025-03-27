@@ -1,44 +1,46 @@
-# About Challenge2Solution
+# About Shayri मंच
+
+## Our Journey
+
+Shayri मंच is more than just a platform – it's a vibrant community where words come alive, emotions find their voice, and poetry transcends boundaries. Born from a passion for the rich literary tradition of Shayari, we aim to create a digital stage where every poet, whether a beginner or a seasoned writer, can share their heart's deepest expressions.
 
 ## Our Mission
 
-At Challenge2Solution, we believe that every problem contains the seed of opportunity. We've built a bridge between those facing challenges and those eager to solve them, creating an ecosystem where innovation thrives through collaboration.
+### Empowering Poets
 
-## The Challenge2Solution Story
+We believe every word has a story, every emotion a verse. Shayri मंच is dedicated to:
 
-Challenge2Solution was born from a simple observation: across industries, academia, and everyday life, problems go unsolved while problem-solvers search for meaningful opportunities to apply their skills.
+- Providing a inclusive platform for poets of all levels
+- Celebrating the art of Shayari in all its beautiful forms
+- Connecting poets with a community that understands and appreciates their craft
 
-What started as a small community of tech enthusiasts and freelancers has evolved into a comprehensive platform serving innovators, professionals, and students alike—all connected by the shared purpose of turning challenges into solutions.
+## What Makes Us Unique
 
-## How We're Different
+### A Stage for Every Poet
 
-Unlike traditional freelancing platforms or innovation hubs, Challenge2Solution creates value through validated problem statements. Every challenge on our platform represents a real need, ensuring that solutions have built-in markets and immediate impact.
-
-Our unique coin-based ecosystem rewards participation at all levels, whether you're posting challenges, proposing solutions, or contributing to discussions.
-
-## Who We Serve
-
-### SaaS Builders & Entrepreneurs
-Access a treasure trove of validated problem statements from real users across diverse industries. Build solutions people actually need and connect directly with your first customers.
-
-### Skilled Freelancers
-Find urgent projects that match your expertise, earn fair compensation, and build your portfolio with meaningful work that solves real problems.
-
-### Students & Academic Community
-Post academic challenges, earn participation coins, and exchange them for help with your own projects. Develop practical skills by solving real-world problems while building your professional network.
+- **Poet of the Month**: Recognizing and showcasing exceptional talent
+- **Annual Poet Awards**: Celebrating the most impactful voices
+- **Open Mic Opportunities**: Virtual and physical platforms to perform
+- **Collaborative Spaces**: Connect with fellow poets, share feedback, and grow together
 
 ## Our Values
 
-- **Authenticity:** Every challenge on our platform represents a genuine need
-- **Collaboration:** The best solutions emerge when diverse perspectives unite
-- **Accessibility:** Knowledge and opportunity should be available to all
-- **Innovation:** We constantly evolve our platform based on community feedback
-- **Impact:** We measure success by problems solved, not just connections made
+- **Creativity**: Nurturing original and heartfelt expressions
+- **Inclusivity**: Welcoming poets from all backgrounds
+- **Respect**: Fostering a supportive and constructive community
+- **Innovation**: Blending traditional Shayari with modern digital platforms
 
-## Join the Solution Revolution
+## Join Our Community
 
-Whether you're facing a challenge that needs solving or you're ready to apply your skills to meaningful problems, Challenge2Solution is your platform to connect, collaborate, and create impact.
+Whether you're a passionate Shayar, a poetry enthusiast, or someone discovering the magic of words, Shayri मंच welcomes you. Here, every verse tells a story, every emotion finds its rhythm.
 
-[Join Now Button]
+**Be Heard. Be Inspired. Be a Shayar.**
 
-[Contact Us Button]
+### Connect With Us
+
+- Follow us on social media
+- Submit your Shayari
+- Participate in monthly challenges
+- Join our growing community of poets
+
+_Shayri मंच - Where Words Weave Emotions_
