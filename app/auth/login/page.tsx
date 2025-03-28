@@ -84,15 +84,16 @@ export default function LoginPage() {
         }}
       >
         <div>
-          <div
+          <Link
+          href={"/"}
             className="text-4xl font-bold py-2 relative overflow-hidden"
             style={{
               color: colors.lightPurple,
               textShadow: "2px 2px 4px rgba(128, 0, 128, 0.5)",
             }}
           >
-            Shayari<span className="text-neon-purple">Verse</span>
-          </div>
+            Shayri<span className="text-neon-purple">मंच</span>
+          </Link>
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Welcome Back, Shayar!
           </h2>

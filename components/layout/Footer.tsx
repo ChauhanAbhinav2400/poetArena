@@ -11,25 +11,16 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="relative h-10 mb-4 w-50 self-center rounded-full object-contain">
-                <img
-                  src="https://i.ibb.co/0pRgNZzR/Simple-attire-200-x-50-px-1.png"
-                  alt="Simple-attire-200-x-50-px-1"
-                  className=""
-                />
-              </div>
-              {/* <div>
-                <h2
-                  className="text-lg font-bold"
-                  style={{
-                    background: `linear-gradient(90deg, ${colors.darkPurple}, ${colors.darkPink})`,
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  ShayariVerse
-                </h2>
-              </div> */}
+
+            <div className="relative h-10 mb-4 w-50 self-center rounded-full object-contain">
+            <img
+              src="https://i.ibb.co/0pRgNZzR/Simple-attire-200-x-50-px-1.png"
+              alt="Simple-attire-200-x-50-px-1"
+              className=""
+            />
+           
+          </div>
+
             </Link>
             <p className="text-gray-400 text-sm">
               A sanctuary for poets and readers to weave emotions into verses
@@ -41,11 +32,9 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Explore</h3>
             <ul className="space-y-2">
-              {[
-                { label: "Home", link: "/" },
-                { label: "Poets", link: "/poets" },
-                { label: "Explore Shayaris", link: "/poetry" },
-              ].map((item) => (
+
+              {[{label:"Home",link:"/"}, {label:"Poets",link:"poets"},{label:"Explore Shayaris",link:"poetry"}].map((item) => (
+
                 <li key={item}>
                   <Link
                     href={`/${item.link}`}
