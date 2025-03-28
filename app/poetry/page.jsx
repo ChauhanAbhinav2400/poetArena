@@ -159,14 +159,14 @@ export default function PoetriesPage() {
               Shayriमंच Community
             </h1>
             <p className="text-lg text-gray-200 mb-8">
-              Dive into a world of poetry—read, share, and connect with fellow
+              Dive into a world of shayri read, share, and connect with
               poets. Let your words weave magic.
             </p>
             <button
               onClick={() => setIsAddModalOpen(true)}
               className="px-8 py-3 bg-gray-800 text-white rounded-full font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-purple-500 transform hover:-translate-y-1"
             >
-              Share Your Poetry
+              Post Your Shayri
             </button>
           </div>
         </div>

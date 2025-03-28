@@ -31,8 +31,13 @@ export default function EditProfileModal({ isOpen, onClose, onSubmit, data }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto text-gray-300">
+    <div className="fixed inset-0 z-50">
+      <div className="absolute inset-0 h-full w-full  z-10 bg-black opacity-[0.5]">
+
+      </div>
+      <div className="absolute inset-0 h-full w-full  z-20 flex items-center justify-center p-4">
+ 
+      <div className="bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] custom-scrollbar overflow-y-auto text-gray-300">
         <div
           className="p-1"
           style={{
@@ -198,6 +203,8 @@ export default function EditProfileModal({ isOpen, onClose, onSubmit, data }) {
             </div>
           </form>
         </div>
+      </div>
+             
       </div>
     </div>
   );
