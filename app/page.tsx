@@ -101,23 +101,23 @@ export default function Home() {
   const testimonials = [
     {
       quote:
-        "Shayri मंच transformed my poetry journey with its supportive community and innovative tools!",
+        "Shayri मंच gave me a platform to showcase my talent and earn rewards from fans!",
       author: "Neha Patel",
-      role: "Aspiring Poet",
+      role: "Aspiring Shayar",
       id: 1,
     },
     {
       quote:
-        "The monthly challenges and virtual events keep me inspired and connected to poets worldwide.",
+        "Winning Shayar of the Month and performing at the Shayari Munch was a dream come true.",
       author: "Sameer Khan",
-      role: "Published Poet",
+      role: "Awarded Shayar",
       id: 2,
     },
     {
       quote:
-        "A platform that truly understands the soul of Shayari and nurtures creativity.",
+        "The best place to read amazing shayari and support talented poets directly.",
       author: "Priyanka Das",
-      role: "Poetry Enthusiast",
+      role: "Shayari Lover",
       id: 3,
     },
   ];
@@ -152,7 +152,7 @@ export default function Home() {
     try {
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=10`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_TOP_POETRIES}?page=1&limit=10`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -598,7 +598,8 @@ export default function Home() {
         </div> */}
 
           {/* Featured Poem */}
-          <div className="bg-gray-800 rounded-xl p-8 mb-16">
+
+          {/* <div className="bg-gray-800 rounded-xl p-8 mb-16">
             <h2 className="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
               Featured Poem of the Week
             </h2>
@@ -617,7 +618,7 @@ export default function Home() {
                 Read Full Poem
               </a>
             </div>
-          </div>
+          </div> */}
 
           {/* Testimonials Section */}
           <div className="grid md:grid-cols-2 gap-8 mb-16">
@@ -653,17 +654,17 @@ export default function Home() {
             <div className="flex items-center justify-center">
               <div className="text-center">
                 <h3 className="text-2xl font-semibold mb-4">
-                  Join a Global Community
+                  Become a Shayar Star
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  Connect with poets from over 10+ countries, share your work,
-                  and grow together.
+                  Share your shayari, win awards, and perform at our annual
+                  Shayari Munch event.
                 </p>
                 <Link
                   href={"/poets"}
                   className="bg-gray-700 text-white py-2 px-6 rounded-full hover:bg-gray-600 transition-colors"
                 >
-                  Explore Community
+                  Join Now
                 </Link>
               </div>
             </div>

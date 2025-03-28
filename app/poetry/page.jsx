@@ -164,9 +164,9 @@ export default function PoetriesPage() {
             </p>
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="px-8 py-3 bg-gray-800 text-white rounded-full font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-purple-500 transform hover:-translate-y-1"
+              className="px-8 py-3 bg-gray-800 cursor-pointer text-white rounded-full font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-purple-500 transform hover:-translate-y-1"
             >
-              Share Your Poetry
+              Share Your शायरी
             </button>
           </div>
         </div>

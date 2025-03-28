@@ -55,7 +55,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
     extensions: [
       StarterKit, // Basic formatting: bold, italic, paragraphs, etc.
       Placeholder.configure({
-        placeholder: "Write your poetry here...",
+        placeholder: "Write your शायरी here...",
       }),
     ],
     content: formData.content,
@@ -90,7 +90,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white">
-                Share Your Poetry
+                Share Your शायरी
               </h2>
               <button
                 onClick={onClose}
@@ -115,7 +115,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Poetry Title{" "}
+                  शायरी Title{" "}
                   <span className="text-xs">(100 characters only)</span>
                 </label>
                 <input
@@ -132,7 +132,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Poetry Type
+                  शायरी Type
                 </label>
                 <select
                   name="type"
@@ -152,7 +152,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Your Poetry
+                  Your शायरी
                 </label>
                 <div className="mb-2">
                   <button
@@ -209,7 +209,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
                     background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
                   }}
                 >
-                  Post Poetry
+                  Post शायरी
                 </button>
               </div>
             </form>
