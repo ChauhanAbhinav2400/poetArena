@@ -12,7 +12,7 @@ export default function CommentSection({ comments }) {
       {comments?.map((comment) => (
         <div
           key={comment?._id}
-          className="bg-gray-800 rounded-xl shadow-md overflow-hidden"
+          className="bg-gray-900 rounded-xl shadow-md overflow-hidden"
         >
           <div className="p-4">
             <div className="flex items-center mb-3">
