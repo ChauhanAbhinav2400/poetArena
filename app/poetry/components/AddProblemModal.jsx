@@ -84,13 +84,15 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
     <div className="fixed inset-0  z-50 ">
       <div className="absolute z-10 inset-0 w-full h-full  bg-black opacity-[0.6]"></div>
       <div className="absolute z-20  inset-0 w-full h-full flex items-center justify-center p-4">
-        <div className="bg-gray-800 rounded-xl max-w-2xl w-full  overflow-y-auto scollbar-hidden text-gray-300">
+        <div className="bg-gray-800 rounded-xl max-w-2xl w-full  max-h-[90vh] custom-scrollbar overflow-y-auto  text-gray-300">
           <style>{editorStyles}</style>
           <div className="p-1"></div>
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white">
+
                 Share Your शायरी
+
               </h2>
               <button
                 onClick={onClose}
@@ -115,7 +117,9 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
+
                   शायरी Title{" "}
+
                   <span className="text-xs">(100 characters only)</span>
                 </label>
                 <input
@@ -125,14 +129,16 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
                   onChange={handleChange}
                   maxLength={100}
                   className="w-full px-3 py-2 border border-gray-600 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  placeholder="Title of your poetry"
+                  placeholder="Title of your shayri"
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
+
                   शायरी Type
+
                 </label>
                 <select
                   name="type"
@@ -152,7 +158,9 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
+
                   Your शायरी
+
                 </label>
                 <div className="mb-2">
                   <button
@@ -209,7 +217,9 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
                     background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
                   }}
                 >
+
                   Post शायरी
+
                 </button>
               </div>
             </form>

@@ -476,7 +476,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="roboto roboto-seven text-3xl md:text-4xl mb-3">
-              Top Poets of the Month
+              Top Shayar of the Month
             </h2>
             <p className="roboto roboto-four text-gray-400 max-w-2xl mx-auto">
               Meet the shayars who’ve captured hearts with their verses.

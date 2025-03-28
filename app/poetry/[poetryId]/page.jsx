@@ -32,16 +32,32 @@ export default function PoetryDetailPage() {
   const handleBookmark = () => setBookmarked(!bookmarked);
 
   console.log(poetry);
-  const handleShare = () => {
+
+  const handleShare = async () => {
+    const shareMessage = "";
     if (navigator.share) {
-      navigator.share({
-        title: poetry.title,
-        text: poetry.fullText,
-      });
+      try {
+        await navigator.share({
+          title: "Shayri", // The title of the shared item
+          text: "", // The formatted message to share
+          url: window.location.href, // Optionally include the current page URL
+        });
+        console.log("Share was successful");
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
     } else {
-      navigator.clipboard.writeText(poetry.fullText);
-      alert("Poetry copied to clipboard");
+      // Fallback: Open share links for social media or email
+      const emailSubject = `${poetry.title}`;
+      const emailBody = encodeURIComponent(shareMessage);
+      const emailLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
+      window.location.href = emailLink;
     }
+  };
+
+  const getname = (name) => {
+    const poetNameSlug = name.toLowerCase().replace(/\s+/g, "-");
+    return poetNameSlug;
   };
 
   useEffect(() => {
@@ -211,24 +227,19 @@ export default function PoetryDetailPage() {
           {/* Poet Profile Section */}
           <div className="bg-gray-900 rounded-2xl p-6 shadow-2xl">
             <div className="flex flex-col items-center">
-              <img
-                src="/api/placeholder/150/150"
-                alt="Dishant"
-                className="w-36 h-36 rounded-full object-cover mb-4 border-4 border-purple-600"
-              />
-              <h3 className="text-2xl font-bold text-purple-200">
-                Dishant Chauhan
-              </h3>
-              <p className="text-purple-300 mb-4"></p>
-
-              <div className="text-center mb-6">
-                <p className="text-white/80"></p>
+              
+              <div className="w-16 h-16  rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                <span className="text-2xl font-normal">{poetry?.posterName?.charAt(0)}</span>
               </div>
+              <h3 className="text-xl text-center mt-4 font-bold text-purple-200">
+                {poetry?.posterName}
+              </h3>
+             
 
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 mt-4">
                 <a
-                  href="#"
-                  className="bg-purple-700/30 p-3 rounded-full hover:bg-purple-700/50 transition"
+                  href={`/poets/${getname(poetry?.posterName)}?id=${poetry?.poster}`}
+                  className="bg-purple-700/30 px-2 py-1 rounded-full hover:bg-purple-700/50 transition"
                 >
                   View Profile
                 </a>

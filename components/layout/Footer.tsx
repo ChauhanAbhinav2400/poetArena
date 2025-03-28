@@ -33,7 +33,7 @@ export default function Footer() {
             <h3 className="font-semibold text-white mb-4">Explore</h3>
             <ul className="space-y-2">
 
-              {[{label:"Home",link:"/"}, {label:"Poets",link:"poets"},{label:"Explore Shayaris",link:"poetry"}].map((item) => (
+              {[{label:"Home",link:"/"}, {label:"Shayars",link:"poets"},{label:"Explore Shayari",link:"poetry"}].map((item) => (
 
                 <li key={item}>
                   <Link
