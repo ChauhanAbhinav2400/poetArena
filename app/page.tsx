@@ -34,6 +34,7 @@ export default function Home() {
         "Express your emotions through words, share your shayari, and let the world feel your poetry.",
       image: "/images/poet-star.svg",
       color: colors.darkPurple,
+      id: 1,
     },
     {
       title: "Dive into the World of Shayari",
@@ -42,6 +43,7 @@ export default function Home() {
         "Read soulful poetry—love, heartbreak, inspiration, humor, and more, only on Shayriमंच.",
       image: "/images/shayari-reader.svg",
       color: colors.darkPink,
+      id: 2,
     },
     {
       title: "Let Your Words Make History",
@@ -50,6 +52,7 @@ export default function Home() {
         "Shayriमंच gives you the platform to rise, shine, and earn prestigious titles with your poetry.",
       image: "/images/poet-award.svg",
       color: "#5E60CE",
+      id: 3,
     },
   ];
 
@@ -91,18 +94,21 @@ export default function Home() {
         "Shayri मंच transformed my poetry journey with its supportive community and innovative tools!",
       author: "Neha Patel",
       role: "Aspiring Poet",
+      id: 1,
     },
     {
       quote:
         "The monthly challenges and virtual events keep me inspired and connected to poets worldwide.",
       author: "Sameer Khan",
       role: "Published Poet",
+      id: 2,
     },
     {
       quote:
         "A platform that truly understands the soul of Shayari and nurtures creativity.",
       author: "Priyanka Das",
       role: "Poetry Enthusiast",
+      id: 3,
     },
   ];
 
@@ -197,7 +203,7 @@ export default function Home() {
               <div className="relative h-64 mb-8">
                 {heroSlides?.map((slide, index) => (
                   <div
-                    key={index}
+                    key={slide.id}
                     className={`absolute top-0 left-0 w-full transition-all duration-700 ease-in-out ${
                       activeSlide === index
                         ? "opacity-100 translate-y-0"
@@ -242,9 +248,9 @@ export default function Home() {
                 ))}
               </div>
               <div className="flex gap-2 mt-4">
-                {heroSlides?.map((_, index) => (
+                {heroSlides?.map((slide, index) => (
                   <button
-                    key={index}
+                    key={slide.id}
                     onClick={() => setActiveSlide(index)}
                     className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
                       activeSlide === index
@@ -259,7 +265,7 @@ export default function Home() {
             <div className="w-full lg:w-1/2 relative h-64 md:h-96">
               {heroSlides?.map((slide, index) => (
                 <div
-                  key={index}
+                  key={slide?.id}
                   className={`absolute inset-0 transition-all duration-700 ease-in-out ${
                     activeSlide === index
                       ? "opacity-100 translate-x-0"
@@ -417,21 +423,21 @@ export default function Home() {
                   }}
                 >
                   <span className="text-4xl text-white flex items-center justify-center h-full">
-                    {poet.fullName[0]}
+                    {poet?.fullName[0]}
                   </span>
                 </div>
                 <h3 className="roboto roboto-six text-xl text-white mb-2">
-                  {poet.fullName}
+                  {poet?.fullName}
                 </h3>
                 <p className="roboto roboto-four text-gray-400 mb-2">
-                  {poet.country}
+                  {poet?.country}
                 </p>
                 <p className="roboto roboto-five text-yellow-400">
-                  {poet.totalLikes} Likes
+                  {poet?.totalLikes} Likes
                 </p>
 
                 <Link
-                  href={`/poets/${getname(poet?.fullName)}?id=${poet._id}`}
+                  href={`/poets/${getname(poet?.fullName)}?id=${poet?._id}`}
                   className="inline-block mt-4 text-sm roboto roboto-five"
                   style={{ color: colors.darkPink }}
                 >
@@ -557,9 +563,9 @@ export default function Home() {
                   </span>
                 </p>
                 <div className="flex justify-center mt-6 space-x-2">
-                  {testimonials.map((_, index) => (
+                  {testimonials?.map((item, index) => (
                     <button
-                      key={index}
+                      key={item.id}
                       className={`w-3 h-3 rounded-full ${
                         activeTestimonial === index
                           ? "bg-purple-400"

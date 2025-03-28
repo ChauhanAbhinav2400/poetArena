@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import html2canvas from "html2canvas";
 import { colors } from "../../../components/style/theme";
 
 export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
@@ -8,8 +9,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
     poetry;
   const [isLiked, setIsLiked] = useState(poetry.isLiked || false);
   const [isDisliked, setIsDisliked] = useState(poetry.isDisliked || false);
-
-  console.log(poetry, "jjj");
+  const cardRef = useRef(null);
 
   const handleLike = () => {
     if (!isLiked) {
@@ -27,44 +27,47 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
     }
   };
 
+  const handleDownload = async () => {
+    if (cardRef.current) {
+      const canvas = await html2canvas(cardRef.current, { useCORS: true });
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `${title}.png`;
+      link.click();
+    }
+  };
+
   const cardStyles = [
-    // Style 0: Classic
     "bg-gray-800 rounded-xl shadow-md p-6 text-gray-300",
-    // Style 1: Bordered Gradient
     "bg-gray-800 rounded-xl shadow-md p-6 border-2 border-t-0 border-l-0",
-    // Style 2: Minimalist
     "bg-gray-700 rounded-lg p-4 text-gray-200 shadow-sm",
-    // Style 3: Elegant
     "bg-gray-800 rounded-xl shadow-lg p-6 text-gray-300 border-t-4",
-    // Style 4: Vintage
     "bg-gray-700 rounded-xl shadow-md p-6 text-gray-200 border border-gray-600",
-    // Style 5: Bold
     "bg-gray-800 rounded-xl shadow-md p-6 text-gray-300",
   ];
 
   return (
     <div
+      ref={cardRef}
       className={`${cardStyles[cardStyle]} relative`}
       style={{
         background:
           cardStyle === 0
-            ? `linear-gradient(135deg, ${colors.darkPurple}aa, ${colors.darkPink}aa)`
+            ? `linear-gradient(135deg, ${colors.darkPurple}, ${colors.darkPink})`
             : cardStyle === 1
-            ? `radial-gradient(circle, ${colors.darkPink}cc, ${colors.darkPurple}cc)`
+            ? `radial-gradient(circle, ${colors.darkPink}, ${colors.darkPurple})`
             : cardStyle === 2
-            ? `radial-gradient(ellipse, ${colors.lightPurple}aa, ${colors.darkPurple}aa)`
+            ? `radial-gradient(ellipse, ${colors.lightPurple}, ${colors.darkPurple})`
             : cardStyle === 3
-            ? `linear-gradient(45deg, ${colors.darkPink}bb, ${colors.darkPurple}bb)`
-            : `radial-gradient(ellipse, ${colors.lightPurple}aa, ${colors.darkPurple}aa)`,
-        border: `1px solid ${colors.lightPurple}33`,
+            ? `linear-gradient(45deg, ${colors.darkPink}, ${colors.darkPurple})`
+            : `radial-gradient(ellipse, ${colors.lightPurple}, ${colors.darkPurple})`,
+        border: `1px solid ${colors.lightPurple}`,
       }}
     >
       <div className="flex absolute right-2 top-2 items-center mb-3">
         <span
           className="px-3 py-1 text-xs text-pink-500 rounded-full"
-          style={{
-            background: `#ffff`,
-          }}
+          style={{ background: `#ffff` }}
         >
           {type}
         </span>
@@ -123,12 +126,20 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
           </Link>
         </div>
 
-        <Link
-          href={`/poetry/${poetry?._id}`}
-          className="text-sm font-medium hover:underline hover:text-white text-lightPurple "
-        >
-          Read More
-        </Link>
+        <div className="flex space-x-4">
+          <Link
+            href={`/poetry/${poetry?._id}`}
+            className="text-sm font-medium hover:underline hover:text-white text-lightPurple "
+          >
+            Read More
+          </Link>
+          <button
+            className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition"
+            onClick={handleDownload}
+          >
+            Download
+          </button>
+        </div>
       </div>
     </div>
   );
