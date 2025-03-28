@@ -57,7 +57,7 @@ export default function PoetryActions({
           </svg>
           <span className="font-medium">{dislikes}</span>
         </button>
-       
+
         <div className="flex items-center space-x-2 text-gray-400">
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -68,17 +68,15 @@ export default function PoetryActions({
           </svg>
           <span className="font-medium">{commentCount} comments</span>
         </div>
-        </div>
-
-
-        <button
-          onClick={onShare}
-          className="flex items-center space-x-2 bg-purple-700/30 px-4 py-2 rounded-full hover:bg-purple-700/50 transition text-white"
-        >
-          <Share2 />
-          <span>Share</span>
-        </button>
       </div>
-  
+
+      <button
+        onClick={onShare}
+        className="flex items-center space-x-2 bg-purple-700/30 px-4 py-2 rounded-full hover:bg-purple-700/50 transition text-white"
+      >
+        <Share2 />
+        <span>Share</span>
+      </button>
+    </div>
   );
 }

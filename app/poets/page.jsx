@@ -120,7 +120,7 @@ const TopPoetsPage = () => {
 
   const handlePoetClick = (poetId, name) => {
     const poetNameSlug = name?.toLowerCase().replace(/\s+/g, "-");
-    router.push(`/poets/${poetId}`);
+    router.push(`/poets/${poetNameSlug}?id=${poetId}`);
   };
 
   return (

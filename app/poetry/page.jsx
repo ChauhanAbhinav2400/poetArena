@@ -145,7 +145,7 @@ export default function PoetriesPage() {
   }
 
   return (
-    <div className="min-h-screen mt-16  text-gray-300">
+    <div className="min-h-screen mt-16 bg-gray-800 text-gray-300">
       {/* Header Section */}
       <div
         className="py-16"
@@ -185,14 +185,14 @@ export default function PoetriesPage() {
       {/* Poetries Grid */}
       <div className="container bg-gray-800 mx-auto px-4 py-8">
         {isLoading ? (
-          <div className="flex justify-center py-20">
+          <div className="flex bg-gray-800 justify-center py-20">
             <div
               className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"
               style={{ borderColor: colors.lightPurple }}
             ></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-wrap sm:justify-between justify-center items-center gap-10">
             {poetries?.map((poetry, index) => (
               <PoetryCard
                 key={poetry.id}
