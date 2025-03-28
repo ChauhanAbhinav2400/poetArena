@@ -4,7 +4,7 @@ import Link from "next/link";
 import { colors } from "../../../components/style/theme";
 import domtoimage from "dom-to-image"; // New library
 
-export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
+export default function DownloadShayri({ poetry, onLike, onDislike, cardStyle }) {
   const { title, type, content, posterName, likes, dislikes, comments } =
     poetry;
   const [isLiked, setIsLiked] = useState(poetry.isLiked || false);
@@ -120,7 +120,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
             ? `linear-gradient(45deg, ${colors.darkPink}, ${colors.darkPurple})`
             : `radial-gradient(ellipse, ${colors.lightPurple}, ${colors.darkPurple})`,
         border: `1px solid ${colors.lightPurple}`,
-        height: "400px",
+        height: "auto",
         width: "400px",
       }}
     >
@@ -141,7 +141,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
       </div>
 
       <div
-        className="text-gray-200 snap-start text-center text-lg mb-4 poetry-content flex-grow overflow-y-auto custom-scrollbar"
+        className="text-gray-200 snap-start text-center text-lg mb-4 poetry-content flex-grow "
         dangerouslySetInnerHTML={{ __html: content }}
       />
 

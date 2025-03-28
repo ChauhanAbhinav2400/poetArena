@@ -32,8 +32,8 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Poetry", href: "/poetry" },
-    { name: "Poets", href: "/poets" },
+    { name: "Shayri", href: "/poetry" },
+    { name: "Shayars", href: "/poets" },
   ];
 
   return (

@@ -219,19 +219,19 @@ export default function ProfilePage() {
               </button>
               <button
                 className={`px-5 py-3 rounded-lg cursor-pointer text-sm md:text-base transition-all ${
-                  activeTab === "poetries"
+                  activeTab === "shayri"
                     ? "text-white"
                     : "text-gray-400 hover:text-gray-200"
                 }`}
                 style={{
                   background:
-                    activeTab === "poetries"
+                    activeTab === "shayri"
                       ? `linear-gradient(90deg, ${colors.darkPurple} 30%, ${colors.darkPink} 100%)`
                       : "transparent",
                 }}
-                onClick={() => setActiveTab("poetries")}
+                onClick={() => setActiveTab("shayri")}
               >
-                My Poetries
+                My Shayri
               </button>
             </div>
 
@@ -276,10 +276,10 @@ export default function ProfilePage() {
                 </div>
               )}
 
-              {activeTab === "poetries" && (
+              {activeTab === "shayri" && (
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-6">
-                    My Poetries
+                    My Shayri
                   </h3>
                   {profileData?.poetries?.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
