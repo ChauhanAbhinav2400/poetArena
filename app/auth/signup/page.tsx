@@ -201,7 +201,7 @@ export default function SignupPage() {
       >
         <div className="mt-4">
           <Link
-              href="/"
+            href="/"
             className="text-4xl font-bold py-3 relative overflow-hidden"
             style={{
               color: colors.lightPurple,
@@ -214,7 +214,7 @@ export default function SignupPage() {
             Unleash Your Poetic Soul
           </h2>
           <p className="text-gray-300 mb-6">
-            Share your shayari, connect with readers, and rise as a poetic star.
+            Share your shayari, connect with readers, and rise as a Shayri Star.
           </p>
         </div>
 
