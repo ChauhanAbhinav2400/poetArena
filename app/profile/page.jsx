@@ -10,8 +10,9 @@ import {
   BASE_URL,
   TOKEN_KEY,
 } from "../../lib/constants/constants";
-import { UserPen, Instagram, Twitter, MessageCircle } from "lucide-react";
+import { UserPen, Instagram, Twitter, MessageCircle, Pencil } from "lucide-react";
 import EditProfileModal from "./components/EditProfileModal";
+import EditShayriModal from "./components/EditShayriModall";
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState({
@@ -26,6 +27,14 @@ export default function ProfilePage() {
   const [editProfile, setEditProfile] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
+  const [editShayriModal,setEditShayriModal]=useState(false)
+  const [editShayri,setEditShayri]=useState({})
+
+
+  const handlerShayriEdit=(shayri)=>{
+         setEditShayriModal(true)
+         setEditShayri(shayri)
+  }
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -286,8 +295,13 @@ export default function ProfilePage() {
                       {profileData?.poetries?.map((poetry) => (
                         <div
                           key={poetry?._id}
-                          className="bg-gray-700 p-4 rounded-lg shadow"
+                          className="bg-gray-700 p-4 rounded-lg shadow relative"
                         >
+                          <div className="absolute px-4 inset-1 flex justify-end items-end w-full ">
+                          <Pencil size={20} style={{cursor:"pointer"}} onClick={()=>handlerShayriEdit(poetry)} />
+
+                          </div>
+                          
                           <h4 className="text-lg font-semibold text-white">
                             {poetry?.title}
                           </h4>
@@ -327,6 +341,7 @@ export default function ProfilePage() {
           </>
         )}
       </div>
+      <EditShayriModal isOpen={editShayriModal} onClose={()=>setEditShayriModal(false)}  user="" shayri={editShayri} />
     </section>
   );
 }
