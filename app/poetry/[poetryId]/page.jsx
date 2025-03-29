@@ -197,6 +197,7 @@ export default function PoetryDetailPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-[3fr_1fr] gap-8">
           {/* Main Poetry Section */}
+          
           <div className="bg-gray-900 rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-bold mb-6 text-purple-200">
@@ -220,6 +221,7 @@ export default function PoetryDetailPage() {
                 onLike={() => handleLikeDislike("like")}
                 onDislike={() => handleLikeDislike("dislike")}
                 onShare={() => handleShare()}
+                poetry={poetry}
               />
             </div>
           </div>
