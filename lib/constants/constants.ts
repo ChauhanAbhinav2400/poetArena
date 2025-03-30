@@ -43,6 +43,7 @@ export const API_ENDPOINTS = {
 
   // Poetry Endpoints
   CREATE_POETRY: "add-poetry",
+  UPDATE_POETRY:"poetry",
   GET_POETRIES: "all-poetries",
   GET_POETRIES_BY_TYPE: "type", // e.g., /type/Love
   SEARCH_POETRIES: "poetry/search",
