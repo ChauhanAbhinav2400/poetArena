@@ -10,7 +10,13 @@ import {
   BASE_URL,
   TOKEN_KEY,
 } from "../../lib/constants/constants";
-import { UserPen, Instagram, Twitter, MessageCircle, Pencil } from "lucide-react";
+import {
+  UserPen,
+  Instagram,
+  Twitter,
+  MessageCircle,
+  Pencil,
+} from "lucide-react";
 import EditProfileModal from "./components/EditProfileModal";
 import EditShayriModal from "./components/EditShayriModall";
 
@@ -27,61 +33,63 @@ export default function ProfilePage() {
   const [editProfile, setEditProfile] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
   const [isLoading, setIsLoading] = useState(true);
-  const [editShayriModal,setEditShayriModal]=useState(false)
-  const [editShayri,setEditShayri]=useState({})
+  const [editShayriModal, setEditShayriModal] = useState(false);
+  const [editShayri, setEditShayri] = useState({});
+
+  const handlerShayriEdit = (shayri) => {
+    setEditShayriModal(true);
+    setEditShayri(shayri);
+  };
 
 
-  const handlerShayriEdit=(shayri)=>{
-         setEditShayriModal(true)
-         setEditShayri(shayri)
-  }
+  const fetchProfileData = async () => {
+    setIsLoading(true);
+    try {
+      const userData = await apiCall({
+        method: "GET",
+        url: `${BASE_URL}${API_ENDPOINTS.GET_USER_PROFILE}`,
+        headers: {
+          Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
+        },
+      });
+
+      // Mock poetries data (replace with actual API call if available)
+      const poetriesData = [
+        {
+          id: 1,
+          title: "Moonlit Whispers",
+          content: "In the silence of the night, whispers take flight...",
+          date: "2023-05-10",
+        },
+        {
+          id: 2,
+          title: "Echoes of the Soul",
+          content: "Echoes resound, in the heart they're found...",
+          date: "2023-06-15",
+        },
+      ];
+
+      setProfileData({
+        fullName: userData.data.fullName || "Unknown Poet",
+        country: userData.data.country || "Not Specified",
+        email: userData.data.email || "N/A",
+        instagramLink: userData.data.instagramLink || "",
+        twitterLink: userData.data.twitterLink || "",
+        whatsappNumber: userData.data.whatsappNumber || "",
+        poetries: userData.data.poetries,
+        upiId: userData.data.upiId,
+        paypalId: userData.data.paypalId,
+      });
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+      toast.error("Failed to load profile data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      setIsLoading(true);
-      try {
-        const userData = await apiCall({
-          method: "GET",
-          url: `${BASE_URL}${API_ENDPOINTS.GET_USER_PROFILE}`,
-          headers: {
-            Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
-          },
-        });
-
-        // Mock poetries data (replace with actual API call if available)
-        const poetriesData = [
-          {
-            id: 1,
-            title: "Moonlit Whispers",
-            content: "In the silence of the night, whispers take flight...",
-            date: "2023-05-10",
-          },
-          {
-            id: 2,
-            title: "Echoes of the Soul",
-            content: "Echoes resound, in the heart they're found...",
-            date: "2023-06-15",
-          },
-        ];
-
-        setProfileData({
-          fullName: userData.data.fullName || "Unknown Poet",
-          country: userData.data.country || "Not Specified",
-          email: userData.data.email || "N/A",
-          instagramLink: userData.data.instagramLink || "",
-          twitterLink: userData.data.twitterLink || "",
-          whatsappNumber: userData.data.whatsappNumber || "",
-          poetries: userData.data.poetries,
-          upiId: userData.data.upiId,
-          paypalId: userData.data.paypalId,
-        });
-      } catch (error) {
-        console.error("Failed to fetch profile data:", error);
-        toast.error("Failed to load profile data");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+   
 
     fetchProfileData();
   }, []);
@@ -133,6 +141,29 @@ export default function ProfilePage() {
       toast.info("No link available for this platform");
     }
   };
+
+
+
+  async function handleAddPoetry(poetryData) {
+    try {
+      await apiCall({
+        method: "PUT",
+        url: `${BASE_URL}${API_ENDPOINTS.UPDATE_POETRY}/${editShayri._id}`,
+        body: poetryData,
+        headers: {
+          Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
+          
+        },
+      });
+      toast.success("Shayri Updated Successfully");
+      setEditShayriModal(false)
+      fetchProfileData();
+    } catch (error) {
+      console.error("Failed to update shayri:", error);
+      toast.error("Failed to update shayri");
+    }
+  }
+
 
   return (
     <section className="py-12 mt-20 bg-gray-900 min-h-screen text-gray-300">
@@ -298,10 +329,13 @@ export default function ProfilePage() {
                           className="bg-gray-700 p-4 rounded-lg shadow relative"
                         >
                           <div className="absolute px-4 inset-1 flex justify-end items-end w-full ">
-                          <Pencil size={20} style={{cursor:"pointer"}} onClick={()=>handlerShayriEdit(poetry)} />
-
+                            <Pencil
+                              size={20}
+                              style={{ cursor: "pointer" }}
+                              onClick={() => handlerShayriEdit(poetry)}
+                            />
                           </div>
-                          
+
                           <h4 className="text-lg font-semibold text-white">
                             {poetry?.title}
                           </h4>
@@ -341,7 +375,13 @@ export default function ProfilePage() {
           </>
         )}
       </div>
-      <EditShayriModal isOpen={editShayriModal} onClose={()=>setEditShayriModal(false)}  user="" shayri={editShayri} />
+      <EditShayriModal
+        isOpen={editShayriModal}
+        onClose={() => setEditShayriModal(false)}
+        user=""
+        shayri={editShayri}
+        onSubmit={handleAddPoetry}
+      />
     </section>
   );
 }

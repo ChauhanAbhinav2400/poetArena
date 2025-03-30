@@ -36,7 +36,7 @@ export default function EditShayriModal({ isOpen, onClose, onSubmit, user,shayri
     content: "",
   });
 
-  console.log(shayri)
+  console.log(formData)
 
   useEffect(()=>{
      setFormData({...formData,title:shayri?.title,type:shayri?.type,content:shayri?.content})
@@ -61,21 +61,28 @@ export default function EditShayriModal({ isOpen, onClose, onSubmit, user,shayri
     extensions: [
       StarterKit, // Basic formatting: bold, italic, paragraphs, etc.
       Placeholder.configure({
-        placeholder: "Write your poetry here...",
+        placeholder: "Write your sharyi here...",
       }),
     ],
-    content: formData.content,
+    content: "",
     onUpdate: ({ editor }) => {
       setFormData((prev) => ({ ...prev, content: editor.getHTML() }));
     },
     editable: true,
   });
 
+  useEffect(() => {
+    if (editor && formData.content) {
+      editor.commands.setContent(formData.content);
+    }
+  }, [formData.content, editor]); // Update content when formData.content changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({
@@ -96,7 +103,7 @@ export default function EditShayriModal({ isOpen, onClose, onSubmit, user,shayri
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white">
-                Post Your Shayri
+                Update Your Shayri
               </h2>
               <button
                 onClick={onClose}
@@ -215,7 +222,7 @@ export default function EditShayriModal({ isOpen, onClose, onSubmit, user,shayri
                     background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
                   }}
                 >
-                  Post Shayri
+                  Update Shayri
                 </button>
               </div>
             </form>
