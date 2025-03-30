@@ -121,7 +121,8 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
             : `radial-gradient(ellipse, ${colors.lightPurple}, ${colors.darkPurple})`,
         border: `1px solid ${colors.lightPurple}`,
         height: "400px",
-        width: "400px",
+        minWidth: "400px",
+        maxWidth: "400px",
       }}
     >
       <div className="flex-shrink-0">
@@ -141,7 +142,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
       </div>
 
       <div
-        className="text-gray-200 snap-start text-center text-lg mb-4 poetry-content flex-grow overflow-y-auto custom-scrollbar"
+        className="text-gray-200 snap-start line-clamp-5 text-center text-lg mb-4 poetry-content flex-grow overflow-y-auto custom-scrollbar"
         dangerouslySetInnerHTML={{ __html: content }}
       />
 
@@ -192,7 +193,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
           </div>
 
           <div className="flex space-x-2">
-            {/* <button
+            <button
               onClick={copyToClipboard}
               className="text-gray-400 hover:text-white cursor-pointer"
             >
@@ -219,7 +220,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
                   <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
                 </svg>
               )}
-            </button> */}
+            </button>
             {/* <button
               onClick={downloadCard}
               className="text-gray-400 hover:text-white cursor-pointer"

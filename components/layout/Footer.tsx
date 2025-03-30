@@ -1,26 +1,62 @@
+"use client";
+
 import Link from "next/link";
-import { colors } from "@/components/style/theme";
+import { colors } from "@/components/style/theme"; // Adjust the import path
+import { useState } from "react";
+import { apiCall } from "../../api/fetchData"; // Adjust the import path to your apiCall function
+import { API_ENDPOINTS, BASE_URL } from "../../lib/constants/constants"; // Adjust the import path to your API_ENDPOINTS
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [email, setEmail] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setError("Please enter an email address");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      const response = await apiCall({
+        method: "POST",
+        url: `${BASE_URL}${API_ENDPOINTS.SUBSCRIBE}`, // Use the SUBSCRIBE endpoint
+        body: { email },
+      });
+
+      if (response.success) {
+        setShowSuccess(true);
+        setEmail("");
+        setError("");
+        setTimeout(() => setShowSuccess(false), 5000);
+      }
+    } catch (error) {
+      console.error("Error subscribing:", error);
+      setError("Failed to subscribe. Please try again.");
+    }
+  };
 
   return (
     <footer className="mt-auto py-8 bg-gray-900 text-gray-300">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-
-            <div className="relative h-10 mb-4 w-50 self-center rounded-full object-contain">
-            <img
-              src="https://i.ibb.co/0pRgNZzR/Simple-attire-200-x-50-px-1.png"
-              alt="Simple-attire-200-x-50-px-1"
-              className=""
-            />
-           
-          </div>
-
+              <div className="relative h-10 mb-4 w-50 self-center rounded-full object-contain">
+                <img
+                  src="https://i.ibb.co/0pRgNZzR/Simple-attire-200-x-50-px-1.png"
+                  alt="Simple-attire-200-x-50-px-1"
+                  className=""
+                />
+              </div>
             </Link>
             <p className="text-gray-400 text-sm">
               A sanctuary for poets and readers to weave emotions into verses
@@ -28,14 +64,15 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation Links */}
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Explore</h3>
             <ul className="space-y-2">
-
-              {[{label:"Home",link:"/"}, {label:"Shayars",link:"poets"},{label:"Explore Shayari",link:"poetry"}].map((item) => (
-
-                <li key={item}>
+              {[
+                { label: "Home", link: "/" },
+                { label: "Shayars", link: "poets" },
+                { label: "Explore Shayari", link: "poetry" },
+              ].map((item) => (
+                <li key={item.label}>
                   <Link
                     href={`/${item.link}`}
                     className="text-gray-400 hover:text-lightPurple transition-colors duration-200 text-sm"
@@ -47,11 +84,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Community Links */}
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Community</h3>
             <ul className="space-y-2">
-              {["About Us","Contact Us", "Awards"].map((item) => (
+              {["About Us", "Contact Us", "Awards"].map((item) => (
                 <li key={item}>
                   <Link
                     href={`/${item.toLowerCase().replace(/ /g, "-")}`}
@@ -64,7 +100,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Connect & Newsletter */}
           <div className="col-span-1">
             <h3 className="font-semibold text-white mb-4">Stay Connected</h3>
             <div className="flex space-x-3 mb-4">
@@ -91,44 +126,41 @@ export default function Footer() {
             </div>
             <div className="mt-4">
               <h4 className="text-sm font-medium text-gray-300 mb-2">
-                Get Poetic Updates
+                Get Shayri Updates
               </h4>
-              <div className="flex">
+              {showSuccess && (
+                <p className="text-green-400 text-sm mb-2">
+                  Successfully subscribed!
+                </p>
+              )}
+              {error && <p className="text-red-400 text-sm mb-2">{error}</p>}
+              <form onSubmit={handleSubscribe} className="flex">
                 <input
                   type="email"
                   placeholder="Your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="p-2 text-sm rounded-l-md border-y border-l border-gray-600 bg-gray-700 text-gray-300 focus:outline-none focus:border-lightPurple flex-grow"
                 />
                 <button
-                  className="px-3 py-2 rounded-r-md text-white text-sm"
+                  type="submit"
+                  className="px-3 py-2 cursor-pointer rounded-r-md text-white text-sm"
                   style={{
                     background: `linear-gradient(90deg, ${colors.darkPurple} 0%, ${colors.darkPink} 100%)`,
                   }}
                 >
                   Subscribe
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
         <div className="mt-8 pt-6 border-t border-gray-700">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <p className="text-gray-500 text-sm">
-              © {year} ShayariVerse. All rights reserved.
+              © {year} Shayriमंच. All rights reserved.
             </p>
-            <div className="flex space-x-6">
-              {["Privacy Policy", "Terms of Use"].map((item) => (
-                <Link
-                  key={item}
-                  href={`/${item.toLowerCase().replace(/ /g, "-")}`}
-                  className="text-gray-500 hover:text-lightPurple text-sm transition-colors duration-200"
-                >
-                  {item}
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       </div>

@@ -101,7 +101,7 @@ export default function SetPasswordPage() {
               textShadow: "2px 2px 4px rgba(128, 0, 128, 0.5)",
             }}
           >
-            Shayari<span className="text-neon-purple">Verse</span>
+            Shayari<span className="text-neon-purple">मंच</span>
           </div>
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Rewrite Your Verse

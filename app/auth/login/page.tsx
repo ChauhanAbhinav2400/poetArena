@@ -85,7 +85,7 @@ export default function LoginPage() {
       >
         <div>
           <Link
-          href={"/"}
+            href={"/"}
             className="text-4xl font-bold py-2 relative overflow-hidden"
             style={{
               color: colors.lightPurple,
@@ -171,7 +171,7 @@ export default function LoginPage() {
             className="text-3xl font-bold mb-6 text-center"
             style={{ color: colors.lightPurple }}
           >
-            Enter the Verse
+            Enter the Shayriमंच
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -249,7 +249,7 @@ export default function LoginPage() {
                   opacity: loading ? 0.7 : 1,
                 }}
               >
-                {loading ? "Entering..." : "Enter ShayariVerse"}
+                {loading ? "Entering..." : "Enter Shayriमंच"}
               </button>
             </div>
 
@@ -260,7 +260,7 @@ export default function LoginPage() {
             {/* Sign Up Link */}
             <div className="text-center mt-4">
               <p className="text-sm text-gray-400">
-                New to the verse?{" "}
+                New to the Shayriमंच?{" "}
                 <Link
                   href="/auth/signup"
                   className="font-medium"

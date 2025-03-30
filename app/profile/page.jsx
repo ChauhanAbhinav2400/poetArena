@@ -41,7 +41,6 @@ export default function ProfilePage() {
     setEditShayri(shayri);
   };
 
-
   const fetchProfileData = async () => {
     setIsLoading(true);
     try {
@@ -89,8 +88,6 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-   
-
     fetchProfileData();
   }, []);
 
@@ -142,8 +139,6 @@ export default function ProfilePage() {
     }
   };
 
-
-
   async function handleAddPoetry(poetryData) {
     try {
       await apiCall({
@@ -152,18 +147,16 @@ export default function ProfilePage() {
         body: poetryData,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
-          
         },
       });
       toast.success("Shayri Updated Successfully");
-      setEditShayriModal(false)
+      setEditShayriModal(false);
       fetchProfileData();
     } catch (error) {
       console.error("Failed to update shayri:", error);
       toast.error("Failed to update shayri");
     }
   }
-
 
   return (
     <section className="py-12 mt-20 bg-gray-900 min-h-screen text-gray-300">
@@ -328,9 +321,9 @@ export default function ProfilePage() {
                           key={poetry?._id}
                           className="bg-gray-700 p-4 rounded-lg shadow relative"
                         >
-                          <div className="absolute px-4 inset-1 flex justify-end items-end w-full ">
+                          <div className="absolute px-4 inset-1 flex justify-end items-start top-2 right-2  w-full ">
                             <Pencil
-                              size={20}
+                              size={25}
                               style={{ cursor: "pointer" }}
                               onClick={() => handlerShayriEdit(poetry)}
                             />

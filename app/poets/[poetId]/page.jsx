@@ -14,7 +14,7 @@ import {
   FaPaypal,
   FaUser,
 } from "react-icons/fa";
-import { Edit } from "lucide-react";
+import { Edit, MessageCircle } from "lucide-react";
 import { colors } from "../../../components/style/theme";
 
 const PoetProfilePage = () => {
@@ -69,6 +69,14 @@ const PoetProfilePage = () => {
       </div>
     );
 
+  const handleSocialClick = (type, number) => {
+    if (type === "whatsapp") {
+      window.open(`https://wa.me/${number}`, "_blank");
+    } else {
+      toast.info("No link available for this platform");
+    }
+  };
+
   return (
     <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -82,32 +90,35 @@ const PoetProfilePage = () => {
 
             {/* Social Links */}
             <div className="flex gap-6 mb-6">
-              {poet?.socialAccounts?.twitter && (
+              {poet?.twitterLink && (
                 <a
-                  href={poet.socialAccounts.twitter}
+                  href={poet?.twitterLink}
                   target="_blank"
                   className="text-yellow-400 text-2xl hover:text-red-400 transition-colors"
                 >
                   <FaTwitter />
                 </a>
               )}
-              {poet.socialAccounts?.instagram && (
+              {poet?.instagramLink && (
                 <a
-                  href={poet.socialAccounts.instagram}
+                  href={poet?.instagramLink}
                   target="_blank"
-                  className="text-yellow-400 text-2xl hover:text-red-400 transition-colors"
+                  className="text-yellow-400 cursor-pointer text-2xl hover:text-red-400 transition-colors"
                 >
                   <FaInstagram />
                 </a>
               )}
-              {poet.socialAccounts?.linkedin && (
-                <a
-                  href={poet.socialAccounts.linkedin}
-                  target="_blank"
-                  className="text-yellow-400 text-2xl hover:text-red-400 transition-colors"
+              {poet?.whatsappNumber && (
+                <button
+                  onClick={() =>
+                    handleSocialClick("whatsapp", poet?.whatsappNumber)
+                  }
                 >
-                  <FaLinkedin />
-                </a>
+                  <MessageCircle
+                    size={20}
+                    className="text-yellow-400 cursor-pointer text-2xl hover:text-red-400 transition-colors"
+                  />
+                </button>
               )}
             </div>
           </div>
@@ -118,7 +129,7 @@ const PoetProfilePage = () => {
               {poet?.fullName}
             </h1>
             <p className="text-gray-300 mb-6">
-              {poet.country || "No Country available."}
+              {poet?.country || "No Country available."}
             </p>
 
             {/* Reward Section */}
@@ -170,7 +181,7 @@ const PoetProfilePage = () => {
             <h2 className="text-3xl text-yellow-400 mb-6">All Poetries</h2>
 
             <div className="space-y-4  custom-scrollbar  max-h-[400px] overflow-y-auto">
-              {poetries?.map((poetry) => (
+              {poetries?.map((poetry, index) => (
                 <div
                   key={poetry._id}
                   className={`p-4 rounded-lg cursor-pointer transition-all duration-300 relative

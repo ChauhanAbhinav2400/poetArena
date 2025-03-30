@@ -42,8 +42,8 @@ export default function PoetriesPage() {
   async function fetchPoetriesByType() {
     const url =
       filters.type === "all"
-        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=10`
-        : `${BASE_URL}${API_ENDPOINTS.GET_POETRIES_BY_TYPE}/${filters.type}?page=1&limit=10`;
+        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=50`
+        : `${BASE_URL}${API_ENDPOINTS.GET_POETRIES_BY_TYPE}/${filters.type}?page=1&limit=50`;
     try {
       setIsLoading(true);
       const response = await apiCall({
@@ -65,8 +65,8 @@ export default function PoetriesPage() {
   async function fetchPoetriesBySearch() {
     const url =
       input.search === ""
-        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=10`
-        : `${BASE_URL}${API_ENDPOINTS.SEARCH_POETRIES}?search=${input.search}?page=1&limit=10`;
+        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=50`
+        : `${BASE_URL}${API_ENDPOINTS.SEARCH_POETRIES}?search=${input.search}&page=1&limit=50`;
     try {
       setIsLoading(true);
       const response = await apiCall({
@@ -90,7 +90,7 @@ export default function PoetriesPage() {
       setIsLoading(true);
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=10`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=1&limit=50`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -159,16 +159,14 @@ export default function PoetriesPage() {
               Shayriमंच Community
             </h1>
             <p className="text-lg text-gray-200 mb-8">
-              Dive into a world of shayri read, share, and connect with
-              poets. Let your words weave magic.
+              Dive into a world of shayri read, share, and connect with poets.
+              Let your words weave magic.
             </p>
             <button
               onClick={() => setIsAddModalOpen(true)}
               className="px-8 py-3 bg-gray-800 cursor-pointer text-white rounded-full font-medium hover:bg-opacity-90 transition-all shadow-lg hover:shadow-purple-500 transform hover:-translate-y-1"
             >
-
               Share Your शायरी
-
             </button>
           </div>
         </div>
@@ -194,7 +192,7 @@ export default function PoetriesPage() {
             ></div>
           </div>
         ) : (
-          <div className="flex flex-wrap sm:justify-between justify-center items-center gap-10">
+          <div className="flex flex-wrap  justify-center items-center gap-14">
             {poetries?.map((poetry, index) => (
               <PoetryCard
                 key={poetry.id}

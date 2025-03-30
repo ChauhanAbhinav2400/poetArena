@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
     try {
       const response = await apiCall({
         method: "POST",
-        url: `${BASE_URL}${API_ENDPOINTS.VERIFY_FORGOT_PASSOWRD_OTP}`,
+        url: `${BASE_URL}${API_ENDPOINTS.VERIFY_FORGOT_PASSWORD_OTP}`,
         body: { email, otp },
       });
       console.log(response, "response");

@@ -43,7 +43,7 @@ export const API_ENDPOINTS = {
 
   // Poetry Endpoints
   CREATE_POETRY: "add-poetry",
-  UPDATE_POETRY:"poetry",
+  UPDATE_POETRY: "poetry",
   GET_POETRIES: "all-poetries",
   GET_POETRIES_BY_TYPE: "type", // e.g., /type/Love
   SEARCH_POETRIES: "poetry/search",
@@ -56,6 +56,13 @@ export const API_ENDPOINTS = {
   DISLIKE_POETRY: "poetry", // e.g., /poetry/:id/dislike
   POST_COMMENT: "poetry", // e.g., /poetry/:id/comment
   GET_COMMENTS: "poetry", // e.g., /poetry/:id/comments
+
+  // Contact and Subscriber
+  CONTACT_US: "contact",
+  SUBSCRIBE: "subscribe",
+
+  CREATE_UPDATE_METADATA: "metadata",
+  GET_METADATA: "metadata",
 };
 
 export const BASE_URL = "http://localhost:5000/api/";
