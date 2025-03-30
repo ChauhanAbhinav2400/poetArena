@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/providers";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "@/lib/contexts/auth-contexts";
 import LayoutWrapper from "@/components/layout/layoutWrapper";
 
@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Challenge2Solution",
+  title: "",
   description: "",
 };
 

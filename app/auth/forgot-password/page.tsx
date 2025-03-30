@@ -44,6 +44,7 @@ export default function ForgotPasswordPage() {
       setOtpSent(true);
       setErrors({});
     } catch (error) {
+      console.error(error);
       setErrors((prev) => ({
         ...prev,
         form: "Failed to send OTP. Please try again.",
@@ -74,6 +75,7 @@ export default function ForgotPasswordPage() {
         router.push(`/auth/set-password?email=${encodeURIComponent(email)}`);
       }
     } catch (error) {
+      console.error(error);
       setErrors((prev) => ({
         ...prev,
         form: "Invalid OTP. Please try again.",

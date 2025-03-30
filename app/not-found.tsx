@@ -3,6 +3,7 @@
 import React from 'react';
 import { AlertCircle, Home, ArrowLeft } from 'lucide-react';
 import { colors } from '@/components/style/theme';
+import Link from 'next/link';
 
 const NotFoundPage = () => {
   // Define your brand colors
@@ -51,14 +52,14 @@ const NotFoundPage = () => {
         
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
+          <Link
             href="/"
             className="flex items-center justify-center gap-2 py-2 px-6 text-white rounded-lg hover:opacity-90 transition-colors font-medium"
             style={{ background: `linear-gradient(90deg, ${color.darkPurple}, ${color.darkPink})` }}
           >
             <Home size={18} />
             Go Home
-          </a>
+          </Link>
           <button 
             onClick={() => window.history.back()}
             className="flex items-center justify-center gap-2 py-2 px-6 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
