@@ -1,8 +1,4 @@
-import HeroSection from "@/components/home/HeroSection";
-import TrendingShayaris from "@/components/home/TrendingShayaris";
-import TopPoets from "@/components/home/TopPoets";
-import ShayarsBenefits from "@/components/home/ShayarsBenefits";
-import ActionBanner from "@/components/home/ActionBanner";
+import PoetsPage from "./components/PoetsPage";
 import { API_ENDPOINTS, BASE_URL, TOKEN_KEY } from "@/lib/constants/constants";
 import { apiCall } from "@/api/fetchData";
 import { getItem } from "@/lib/localStorage";
@@ -26,8 +22,7 @@ async function getMetaData(slug: string) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  
-  const metaData = await getMetaData("home");
+  const metaData = await getMetaData("poets");
 
   return {
     title: metaData.metaTitle,
@@ -58,15 +53,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Home() {
+
+
+const TopPoetsPage = () => {
  
+
   return (
-    <main className="pt-20 text-white">
-      <HeroSection />
-      <TrendingShayaris />
-      <TopPoets />
-      <ShayarsBenefits />
-      <ActionBanner />
-    </main>
+   <div>
+     <PoetsPage/>
+     </div>
   );
-}
+};
+
+export default TopPoetsPage;

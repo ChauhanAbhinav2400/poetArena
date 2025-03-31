@@ -1,9 +1,8 @@
-// components/layout/Header.tsx
+
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { colors } from "@/components/style/theme";
 import { useAuth } from "@/lib/contexts/auth-contexts";

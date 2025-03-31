@@ -5,7 +5,7 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TOKEN_KEY } from "../constants/constants";
 import { getItem, setItem, removeItem } from "../localStorage";
-import { apiCall } from "../../api/fetchData";
+
 
 interface AuthContextType {
   isAuthenticated: boolean;

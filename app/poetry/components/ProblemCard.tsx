@@ -2,10 +2,10 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { colors } from "../../../components/style/theme";
-import domtoimage from "dom-to-image"; // New library
 
-export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
-  const { title, type, content, posterName, likes, dislikes, comments } =
+
+export default function PoetryCard({ poetry, onLike, cardStyle }) {
+  const { title, type, content, posterName, likes, comments } =
     poetry;
   const [isLiked, setIsLiked] = useState(poetry.isLiked || false);
   const [isDisliked, setIsDisliked] = useState(poetry.isDisliked || false);
@@ -20,14 +20,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
     }
   };
 
-  const handleDislike = () => {
-    if (!isDisliked) {
-      setIsDisliked(true);
-      if (isLiked) setIsLiked(false);
-      onDislike();
-    }
-  };
-
+ 
   const copyToClipboard = () => {
     const text = `${title}\n\n${content.replace(
       /<[^>]*>/g,
@@ -38,62 +31,7 @@ export default function PoetryCard({ poetry, onLike, onDislike, cardStyle }) {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  const downloadCard = () => {
-    domtoimage
-      .toPng(cardRef.current, {
-        quality: 0.95,
-        bgcolor: "#4B0082", // Fallback background
-        style: {
-          // Ensure we override any problematic colors
-          background: "#4B0082",
-          border: "1px solid #9370DB",
-        },
-      })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = `${title}.png`;
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((error) => {
-        console.error("Download failed:", error);
-        // Fallback to basic screenshot method
-        basicDownloadFallback();
-      });
-  };
-
-  const basicDownloadFallback = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 300;
-    canvas.height = 400;
-
-    // Basic styling with safe colors
-    ctx.fillStyle = "#4B0082";
-    ctx.fillRect(0, 0, 300, 400);
-    ctx.strokeStyle = "#9370DB";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(0, 0, 300, 400);
-
-    // Add text
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "20px sans-serif";
-    ctx.fillText(title, 20, 40);
-    ctx.font = "16px sans-serif";
-    const cleanContent = content.replace(/<[^>]*>/g, "");
-    const lines = cleanContent.split("\n");
-    let y = 80;
-    lines.forEach((line) => {
-      ctx.fillText(line, 20, y);
-      y += 20;
-    });
-    ctx.fillText(`By: ${posterName}`, 20, 360);
-
-    const link = document.createElement("a");
-    link.download = `${title}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  };
+ 
 
   const cardStyles = [
     "bg-gray-800 rounded-xl shadow-md p-6 text-gray-300",

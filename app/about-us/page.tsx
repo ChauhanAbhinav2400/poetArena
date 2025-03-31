@@ -130,7 +130,7 @@ const AboutUs = () => {
                   src={member.image}
                   alt={member.name}
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                  onError={(e) => (e.target.src = "/images/default-avatar.jpg")} // Fallback image
+                  
                 />
                 <h3 className="text-xl font-semibold">{member.name}</h3>
                 <p className="text-gray-400">{member.role}</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 import { TOKEN_KEY, API_ENDPOINTS, BASE_URL } from "@/lib/constants/constants";
 import { colors } from "@/components/style/theme";
@@ -9,7 +9,7 @@ import { setItem } from "@/lib/localStorage";
 import { apiCall } from "@/api/fetchData";
 
 export default function LoginPage() {
-  const router = useRouter();
+ 
   const [formData, setFormData] = useState({
     email: "",
     password: "",

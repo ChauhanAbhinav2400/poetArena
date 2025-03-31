@@ -73,6 +73,7 @@ export default function SetPasswordPage() {
 
       router.push("/auth/login?passwordReset=true");
     } catch (error) {
+      console.error(error);
       setErrors((prev) => ({
         ...prev,
         form: "Failed to reset password. Please try again.",

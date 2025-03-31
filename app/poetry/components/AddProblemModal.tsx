@@ -29,7 +29,19 @@ const editorStyles = `
   }
 `;
 
-export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
+interface AddPoetryModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: { title: string; type: string }) => void; // Adjust as needed
+  user: { id: string; name: string }; // Replace with the actual user type
+}
+
+interface PoetryData {
+  
+  poster?: string; // ✅ Add optional poster field
+}
+
+export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddPoetryModalProps) {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -65,17 +77,19 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
     editable: true,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    onSubmit({
+    const poetryData: PoetryData = {
       ...formData,
       poster: user?.name || "Anonymous",
-    });
+    };
+  
+    onSubmit(poetryData);
   };
 
   if (!isOpen) return null;

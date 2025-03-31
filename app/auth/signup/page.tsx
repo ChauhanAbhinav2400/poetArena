@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 import { TOKEN_KEY, API_ENDPOINTS, BASE_URL } from "@/lib/constants/constants";
 import { colors } from "@/components/style/theme";
@@ -75,7 +75,7 @@ const COUNTRY_OPTIONS = [
 ];
 
 export default function SignupPage() {
-  const router = useRouter();
+ 
   const [step, setStep] = useState<Step>("details");
   const [formData, setFormData] = useState({
     fullName: "",
