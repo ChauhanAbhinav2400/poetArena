@@ -1,12 +1,9 @@
+import PoetsPage from "./components/PoetsPage";
 import { API_ENDPOINTS, BASE_URL, TOKEN_KEY } from "@/lib/constants/constants";
-import PoetryPage from "./components/PoetryPage";
 import { apiCall } from "@/api/fetchData";
 import { getItem } from "@/lib/localStorage";
-import { Metadata } from "next";
 
-
-
-async function getMetaData(slug: string) {
+async function getMetaData(slug) {
   try {
     const response = await apiCall({
       method: "GET",
@@ -15,28 +12,27 @@ async function getMetaData(slug: string) {
         Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
       },
     });
-
     return response.data || {};
   } catch (error) {
     console.error(`Error fetching metadata:`, error);
-    return null; // ✅ Return null in case of error
+    return null;
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const metaData = await getMetaData("poetry");
+export async function generateMetadata() {
+  const metaData = await getMetaData("poets");
 
   return {
     title: metaData.metaTitle,
     description: metaData.metaDescription,
     openGraph: {
-      title: metaData.metaTitle, // Use metaTitle for consistency
+      title: metaData.metaTitle,
       description: metaData.metaDescription,
-      url: metaData.pageUrl, // Corrected from websiteUrl to pageUrl
+      url: `${metaData.websiteUrl}${metaData.pageUrl}`,
       siteName: metaData.websiteName,
       images: [
         {
-          url: metaData.logoUrl, // OpenGraph requires images array
+          url: metaData.logoUrl,
           width: 1200,
           height: 630,
           alt: metaData.websiteName,
@@ -47,18 +43,20 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: metaData.metaTitle,
       description: metaData.metaDescription,
-      images: [metaData.logoUrl], // Twitter uses an array for images
+      images: [metaData.logoUrl],
     },
     alternates: {
-      canonical: metaData.pageUrl, // Canonical link
+      canonical: `${metaData.websiteUrl}${metaData.pageUrl}`,
     },
   };
 }
 
-export default function PoetriesPage() {
+const TopPoetsPage = () => {
   return (
-    <div className="min-h-screen mt-16 bg-gray-800 text-gray-300">
-      <PoetryPage />
+    <div>
+      <PoetsPage />
     </div>
   );
-}
+};
+
+export default TopPoetsPage;
