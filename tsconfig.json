@@ -23,13 +23,23 @@
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/problem/page.jsx",
+    "app/contact-us/page.tsx",
     "app/poets/page.jsx",
-    "app/contact-us/page.jsx"
+    "app/problem/page.jsx",
+    "next-env.d.ts",
+    "out/types/**/*.ts",
+    "app/poetry/page.jsx",
+    "app/poetry/components/AddProblemModal.jsx",
+    "app/poetry/components/FilterBar.jsx",
+    "app/poetry/components/PoetryPage.jsx",
+    "app/poetry/components/ProblemCard.jsx",
+    "app/poets/components/PoetsPage.jsx",
+    "components/home/TopPoets.jsx",
+    "components/home/TrendingShayaris.jsx",
+    "app/auth/set-password/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

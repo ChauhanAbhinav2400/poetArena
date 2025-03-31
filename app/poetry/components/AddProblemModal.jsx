@@ -5,7 +5,6 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 
-// Custom CSS for Tiptap editor
 const editorStyles = `
   .tiptap.ProseMirror {
     background-color: #374151;
@@ -29,19 +28,7 @@ const editorStyles = `
   }
 `;
 
-interface AddPoetryModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (data: { title: string; type: string }) => void; // Adjust as needed
-  user: { id: string; name: string }; // Replace with the actual user type
-}
-
-interface PoetryData {
-  
-  poster?: string; // ✅ Add optional poster field
-}
-
-export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddPoetryModalProps) {
+export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
@@ -62,10 +49,9 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
     "HeartBreak",
   ];
 
-  // Initialize Tiptap editor
   const editor = useEditor({
     extensions: [
-      StarterKit, // Basic formatting: bold, italic, paragraphs, etc.
+      StarterKit,
       Placeholder.configure({
         placeholder: "Write your शायरी here...",
       }),
@@ -77,19 +63,23 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
     editable: true,
   });
 
-  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const poetryData: PoetryData = {
+    const poetryData = {
       ...formData,
       poster: user?.name || "Anonymous",
     };
-  
     onSubmit(poetryData);
+    setFormData({
+      title: "",
+      type: "",
+      content: "",
+    });
   };
 
   if (!isOpen) return null;
@@ -104,9 +94,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-white">
-
                 Share Your शायरी
-
               </h2>
               <button
                 onClick={onClose}
@@ -131,9 +119,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-
                   शायरी Title{" "}
-
                   <span className="text-xs">(100 characters only)</span>
                 </label>
                 <input
@@ -150,9 +136,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-
                   शायरी Type
-
                 </label>
                 <select
                   name="type"
@@ -172,9 +156,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
-
                   Your शायरी
-
                 </label>
                 <div className="mb-2">
                   <button
@@ -231,9 +213,7 @@ export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }: AddP
                     background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
                   }}
                 >
-
                   Post शायरी
-
                 </button>
               </div>
             </form>

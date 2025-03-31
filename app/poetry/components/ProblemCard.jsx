@@ -3,10 +3,8 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { colors } from "../../../components/style/theme";
 
-
 export default function PoetryCard({ poetry, onLike, cardStyle }) {
-  const { title, type, content, posterName, likes, comments } =
-    poetry;
+  const { title, type, content, posterName, likes, comments } = poetry;
   const [isLiked, setIsLiked] = useState(poetry.isLiked || false);
   const [isDisliked, setIsDisliked] = useState(poetry.isDisliked || false);
   const [isCopied, setIsCopied] = useState(false);
@@ -20,7 +18,6 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
     }
   };
 
- 
   const copyToClipboard = () => {
     const text = `${title}\n\n${content.replace(
       /<[^>]*>/g,
@@ -30,8 +27,6 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
-
- 
 
   const cardStyles = [
     "bg-gray-800 rounded-xl shadow-md p-6 text-gray-300",
