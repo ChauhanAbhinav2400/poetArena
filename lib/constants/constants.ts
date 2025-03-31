@@ -50,7 +50,7 @@ export const API_ENDPOINTS = {
   GET_TOP_POETRIES: "top-poetries",
   GET_POETRY_BY_ID: "poetry", // e.g., /poetry/:id
   GET_POETRIES_BY_USER: "poetry/user", // e.g., /poetry/user/:userId
-  UPDATE_POETRY: "poetry", // e.g., /poetry/:id (PUT)
+  // e.g., /poetry/:id (PUT)
   DELETE_POETRY: "poetry", // e.g., /poetry/:id (DELETE)
   LIKE_POETRY: "poetry", // e.g., /poetry/:id/like
   DISLIKE_POETRY: "poetry", // e.g., /poetry/:id/dislike
@@ -65,7 +65,7 @@ export const API_ENDPOINTS = {
   GET_METADATA: "metadata",
 };
 
-export const BASE_URL = "http://localhost:5000/api/";
-
+// export const BASE_URL = "http://localhost:5000/api/";
+export const BASE_URL = "https://api.whmtrends.in/api/";
 // Token key for localStorage
 export const TOKEN_KEY = "solution_token";

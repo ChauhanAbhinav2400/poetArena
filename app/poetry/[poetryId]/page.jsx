@@ -179,7 +179,7 @@ export default function PoetryDetailPage() {
         <div className="text-center text-gray-300">
           <h2 className="text-2xl font-bold">Poetry not found</h2>
           <button
-            onClick={() => router.push("/problem")}
+            onClick={() => router.push("/poetry")}
             className="mt-4 px-6 py-2 text-white rounded-lg"
             style={{
               background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
@@ -197,7 +197,7 @@ export default function PoetryDetailPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-[3fr_1fr] gap-8">
           {/* Main Poetry Section */}
-          
+
           <div className="bg-gray-900 rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-bold mb-6 text-purple-200">
@@ -229,18 +229,20 @@ export default function PoetryDetailPage() {
           {/* Poet Profile Section */}
           <div className="bg-gray-900 rounded-2xl p-6 shadow-2xl">
             <div className="flex flex-col items-center">
-              
               <div className="w-16 h-16  rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
-                <span className="text-2xl font-normal">{poetry?.posterName?.charAt(0)}</span>
+                <span className="text-2xl font-normal">
+                  {poetry?.posterName?.charAt(0)}
+                </span>
               </div>
               <h3 className="text-xl text-center mt-4 font-bold text-purple-200">
                 {poetry?.posterName}
               </h3>
-             
 
               <div className="flex space-x-4 mt-4">
                 <a
-                  href={`/poets/${getname(poetry?.posterName)}?id=${poetry?.poster}`}
+                  href={`/poets/${getname(poetry?.posterName)}?id=${
+                    poetry?.poster
+                  }`}
                   className="bg-purple-700/30 px-2 py-1 rounded-full hover:bg-purple-700/50 transition"
                 >
                   View Profile
