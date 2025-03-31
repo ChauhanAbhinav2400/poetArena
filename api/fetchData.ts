@@ -15,7 +15,7 @@ export async function apiCall({ method, url, body, headers = {} }: ApiOptions) {
         "Content-Type": "application/json",
         ...headers,
       },
-      credentials: "include", // Includes cookies in the request
+      // credentials: "include", // Includes cookies in the request
     };
 
     if (body && method !== "GET") {

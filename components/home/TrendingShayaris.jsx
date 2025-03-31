@@ -33,7 +33,7 @@ const TrendingShayaris = () => {
       return response.data || [];
     } catch (error) {
       console.error("Failed to fetch poetries:", error);
-      toast.error("Failed to load poetries");
+      toast.error("Network Problem");
     } finally {
     }
   }
