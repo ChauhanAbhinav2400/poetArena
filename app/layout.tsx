@@ -30,9 +30,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* <link rel="icon" href="/favicon.ico" sizes="any" /> */}
+        <link rel="icon" href="/assests/favicon.png" type="image/png" />
+        <link rel="icon" href="/assests/favicon.svg" type="image/svg+xml" />
 
         {/* Preconnect for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
