@@ -1,40 +1,38 @@
-"use client"
+"use client";
 /* eslint-disable react/no-unescaped-entities */
-import { AwardIcon, CalendarIcon, SparklesIcon, UsersIcon } from 'lucide-react';
-import Link from 'next/link';
-import React, { useState } from 'react'
+import { AwardIcon, CalendarIcon, SparklesIcon, UsersIcon } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
 
 const ShayarsBenefits = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const testimonials = [
+    {
+      quote:
+        "Shayri मंच gave me a platform to showcase my talent and earn rewards from fans!",
+      author: "Neha Patel",
+      role: "Aspiring Shayar",
+      id: 1,
+    },
+    {
+      quote:
+        "Winning Shayar of the Month and performing at the Shayari Munch was a dream come true.",
+      author: "Sameer Khan",
+      role: "Awarded Shayar",
+      id: 2,
+    },
+    {
+      quote:
+        "The best place to read amazing shayari and support talented poets directly.",
+      author: "Priyanka Das",
+      role: "Shayari Lover",
+      id: 3,
+    },
+  ];
 
-    const [activeTestimonial, setActiveTestimonial] = useState(0);
-     const testimonials = [
-        {
-          quote:
-            "Shayri मंच gave me a platform to showcase my talent and earn rewards from fans!",
-          author: "Neha Patel",
-          role: "Aspiring Shayar",
-          id: 1,
-        },
-        {
-          quote:
-            "Winning Shayar of the Month and performing at the Shayari Munch was a dream come true.",
-          author: "Sameer Khan",
-          role: "Awarded Shayar",
-          id: 2,
-        },
-        {
-          quote:
-            "The best place to read amazing shayari and support talented poets directly.",
-          author: "Priyanka Das",
-          role: "Shayari Lover",
-          id: 3,
-        },
-      ];
-    
-    
   return (
     <div>
-       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
         <div className="container mx-auto px-4 py-16">
           {/* Hero Section */}
           <div className="text-center mb-16">
@@ -46,17 +44,18 @@ const ShayarsBenefits = () => {
               Share your verses, connect with fans, and turn your passion into a
               legacy.
             </p>
-            <button
+            <Link
+              href={`/poetry`}
               className="
               bg-gradient-to-r from-purple-600 to-pink-600 
               text-white font-bold py-4 px-8 rounded-full 
               text-xl hover:from-purple-700 hover:to-pink-700 
               transition-all duration-300 transform hover:scale-105
-              shadow-lg hover:shadow-2xl
+              shadow-lg hover:shadow-2xl mt-2 cursor-pointer
             "
             >
               Start Your Journey
-            </button>
+            </Link>
           </div>
 
           {/* Benefits Section */}
@@ -180,11 +179,10 @@ const ShayarsBenefits = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-    </div>
-    </div>
-    </div>
-  )
-}
-
-export default ShayarsBenefits
+export default ShayarsBenefits;

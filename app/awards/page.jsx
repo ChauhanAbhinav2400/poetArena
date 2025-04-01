@@ -1,5 +1,4 @@
-import AwardsPage from "./components/AwardsPage"
-
+import AwardsPage from "./components/AwardsPage";
 
 import { apiCall } from "../../api/fetchData";
 import { getItem } from "../../lib/localStorage";
@@ -25,42 +24,40 @@ export async function generateMetadata() {
   const metaData = await getMetaData("awards");
 
   return {
-    title: metaData.metaTitle,
-    description: metaData.metaDescription,
+    title: metaData?.metaTitle,
+    description: metaData?.metaDescription,
     openGraph: {
-      title: metaData.metaTitle,
-      description: metaData.metaDescription,
-      url: `${metaData.websiteUrl}${metaData.pageUrl}`,
-      siteName: metaData.websiteName,
+      title: metaData?.metaTitle,
+      description: metaData?.metaDescription,
+      url: `${metaData?.websiteUrl}${metaData?.pageUrl}`,
+      siteName: metaData?.websiteName,
       images: [
         {
-          url: metaData.logoUrl,
+          url: metaData?.logoUrl,
           width: 1200,
           height: 630,
-          alt: metaData.websiteName,
+          alt: metaData?.websiteName,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: metaData.metaTitle,
-      description: metaData.metaDescription,
-      images: [metaData.logoUrl],
+      title: metaData?.metaTitle,
+      description: metaData?.metaDescription,
+      images: [metaData?.logoUrl],
     },
     alternates: {
-      canonical: `${metaData.websiteUrl}${metaData.pageUrl}`,
+      canonical: `${metaData?.websiteUrl}${metaData?.pageUrl}`,
     },
   };
 }
 
-
-
 const Page = () => {
   return (
     <div>
-      <AwardsPage/>
+      <AwardsPage />
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

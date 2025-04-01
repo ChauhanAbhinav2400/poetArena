@@ -43,6 +43,11 @@ const TrendingShayaris = () => {
       setTopShayaris(resp);
     });
   }, []);
+
+  const getTitle = (title) => {
+    const newTitle = title.split(" ").join("-");
+    return newTitle;
+  };
   return (
     <section className="py-16 bg-gray-800">
       <div className="container mx-auto px-4">
@@ -64,7 +69,7 @@ const TrendingShayaris = () => {
             <div
               key={index}
               ref={cardRef}
-              className="min-w-[380px] max-w-[380px] snap-start rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-xl flex flex-col"
+              className="min-w-[320px] max-w-[320px] snap-start rounded-xl overflow-hidden shadow-lg transition-all hover:shadow-xl flex flex-col"
               style={{
                 background:
                   index % 5 === 0
@@ -154,9 +159,11 @@ const TrendingShayaris = () => {
                       </svg>
                     </button> */}
                       <Link
-                        href={`/poetry/${shayari._id}`}
-                        className="text-sm roboto roboto-five"
-                        style={{ color: colors.darkPink }}
+                        href={`/poetry/${getTitle(shayari.title)}?id=${
+                          shayari._id
+                        }`}
+                        className="text-sm hover:underline cursor-pointer text-[#FF1493] hover:text-white roboto roboto-five"
+                        // style={{ color: colors.darkPink }}
                       >
                         Read More
                       </Link>

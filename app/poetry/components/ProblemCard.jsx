@@ -37,10 +37,15 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
     "bg-gray-800 rounded-xl shadow-md p-6 text-gray-300",
   ];
 
+  const getTitle = (title) => {
+    const newTitle = title.split(" ").join("-");
+    return newTitle;
+  };
+
   return (
     <div
       ref={cardRef}
-      className={`${cardStyles[cardStyle]} relative flex flex-col poetry-card`}
+      className={`${cardStyles[cardStyle]} relative  flex flex-col poetry-card`}
       style={{
         background:
           cardStyle === 0
@@ -54,8 +59,8 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
             : `radial-gradient(ellipse, ${colors.lightPurple}, ${colors.darkPurple})`,
         border: `1px solid ${colors.lightPurple}`,
         height: "400px",
-        minWidth: "400px",
-        maxWidth: "400px",
+        minWidth: "320px",
+        maxWidth: "320px",
       }}
     >
       <div className="flex-shrink-0">
@@ -67,7 +72,7 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
             {type}
           </span>
         </div>
-        <Link href={`/poetry/${poetry?._id}`}>
+        <Link href={`/poetry/${getTitle(title)}?id=${poetry?._id}`}>
           <h3 className="text-xl font-semibold text-white mb-4 hover:text-lightPurple transition-colors pr-10">
             {title}
           </h3>
@@ -106,7 +111,7 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
             </button>
 
             <Link
-              href={`/poetry/${poetry?._id}`}
+              href={`/poetry/${getTitle(title)}?id=${poetry?._id}`}
               className={`flex items-center space-x-1 ${
                 comments?.length > 0 ? "text-white" : "text-gray-400"
               }`}
@@ -163,7 +168,7 @@ export default function PoetryCard({ poetry, onLike, cardStyle }) {
               </svg>
             </button> */}
             <Link
-              href={`/poetry/${poetry?._id}`}
+              href={`/poetry/${getTitle(title)}?id=${poetry?._id}`}
               className="text-sm font-medium hover:underline hover:text-white text-lightPurple cursor-pointer"
             >
               Read More

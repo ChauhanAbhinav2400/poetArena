@@ -237,6 +237,11 @@ const ShayriAwardCard = ({ shayari, rank }) => {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
+  const getTitle = (title) => {
+    const newTitle = title.split(" ").join("-");
+    return newTitle;
+  };
+
   return (
     <div
       className="relative bg-gray-800 rounded-lg p-4 transform hover:scale-105 transition-all duration-300"
@@ -252,7 +257,7 @@ const ShayriAwardCard = ({ shayari, rank }) => {
       <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center text-black font-bold">
         {rank}
       </div>
-      <Link href={`/poetry/${shayari._id}`}>
+      <Link href={`/poetry/${getTitle(shayari.title)}?id=${shayari._id}`}>
         <h3 className="text-lg font-medium text-white mb-2 hover:text-lightPurple">
           {shayari.title}
         </h3>

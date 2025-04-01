@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { apiCall } from "../../../../api/fetchData";
 import {
   API_ENDPOINTS,
@@ -18,6 +18,9 @@ import { BookOpen, Download, Heart, Share2 } from "lucide-react";
 
 export default function PoetryDetailPage() {
   const { poetryId } = useParams();
+  const searchParams = useSearchParams(); // Get query parameters
+  const id = searchParams.get("id");
+
   const router = useRouter();
   const [poetry, setPoetry] = useState(null);
   const [comments, setComments] = useState([]);
@@ -30,8 +33,6 @@ export default function PoetryDetailPage() {
 
   const handleLike = () => setLiked(!liked);
   const handleBookmark = () => setBookmarked(!bookmarked);
-
-  console.log(poetry);
 
   const handleShare = async () => {
     const shareMessage = "";
@@ -63,7 +64,7 @@ export default function PoetryDetailPage() {
   useEffect(() => {
     fetchPoetryDetails();
     fetchComments();
-  }, [poetryId]);
+  }, [id]);
 
   useEffect(() => {
     fetchPoetriesByType();
@@ -96,7 +97,7 @@ export default function PoetryDetailPage() {
       setIsLoading(true);
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRY_BY_ID}/${poetryId}`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRY_BY_ID}/${id}`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -114,7 +115,7 @@ export default function PoetryDetailPage() {
     try {
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${poetryId}/comments`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${id}/comments`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
@@ -129,8 +130,8 @@ export default function PoetryDetailPage() {
     try {
       const endpoint =
         action === "like"
-          ? `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${poetryId}/like`
-          : `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${poetryId}/dislike`;
+          ? `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${id}/like`
+          : `${BASE_URL}${API_ENDPOINTS.LIKE_POETRY}/${id}/dislike`;
 
       await apiCall({
         method: "POST",
@@ -149,7 +150,7 @@ export default function PoetryDetailPage() {
     try {
       await apiCall({
         method: "POST",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${poetryId}/comment`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_COMMENTS}/${id}/comment`,
         body: { text: content },
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,

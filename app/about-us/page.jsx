@@ -1,4 +1,3 @@
-
 import React from "react";
 import { UsersIcon, AwardIcon, HeartIcon, PenToolIcon } from "lucide-react";
 import { colors } from "@/components/style/theme";
@@ -26,36 +25,34 @@ async function getMetaData(slug) {
 
 export async function generateMetadata() {
   const metaData = await getMetaData("about-us");
-
   return {
-    title: metaData.metaTitle,
-    description: metaData.metaDescription,
+    title: metaData?.metaTitle,
+    description: metaData?.metaDescription,
     openGraph: {
-      title: metaData.metaTitle,
-      description: metaData.metaDescription,
-      url: `${metaData.websiteUrl}${metaData.pageUrl}`,
-      siteName: metaData.websiteName,
+      title: metaData?.metaTitle,
+      description: metaData?.metaDescription,
+      url: `${metaData?.websiteUrl}${metaData?.pageUrl}`,
+      siteName: metaData?.websiteName,
       images: [
         {
-          url: metaData.logoUrl,
+          url: metaData?.logoUrl,
           width: 1200,
           height: 630,
-          alt: metaData.websiteName,
+          alt: metaData?.websiteName,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: metaData.metaTitle,
-      description: metaData.metaDescription,
-      images: [metaData.logoUrl],
+      title: metaData?.metaTitle,
+      description: metaData?.metaDescription,
+      images: [metaData?.logoUrl],
     },
     alternates: {
-      canonical: `${metaData.websiteUrl}${metaData.pageUrl}`,
+      canonical: `${metaData?.websiteUrl}${metaData?.pageUrl}`,
     },
   };
 }
-
 
 const AboutUs = () => {
   const team = [
@@ -183,7 +180,6 @@ const AboutUs = () => {
                   src={member.image}
                   alt={member.name}
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                  
                 />
                 <h3 className="text-xl font-semibold">{member.name}</h3>
                 <p className="text-gray-400">{member.role}</p>
