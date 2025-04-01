@@ -26,8 +26,9 @@ const Title = styled.h1`
 
 const Tabs = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 40px;
 `;
 
@@ -118,7 +119,7 @@ const PoetsPage = () => {
   return (
     <Container>
       <Title>Top 20 Poets</Title>
-      <Tabs>
+      <div className="flex flex-wrap w-full justify-center items-center gap-4 my-5 ">
         {["daily", "weekly", "monthly", "yearly"].map((tab) => (
           <Tab
             key={tab}
@@ -128,7 +129,7 @@ const PoetsPage = () => {
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </Tab>
         ))}
-      </Tabs>
+      </div>
       <CardGrid>
         {poets?.map((poet) => (
           <PoetCard
