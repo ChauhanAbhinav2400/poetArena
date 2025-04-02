@@ -4,6 +4,7 @@ import { colors } from "../../../components/style/theme";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import { useUser } from "../../../hooks/useUser";
 
 const editorStyles = `
   .tiptap.ProseMirror {
@@ -28,12 +29,14 @@ const editorStyles = `
   }
 `;
 
-export default function AddPoetryModal({ isOpen, onClose, onSubmit, user }) {
+export default function AddPoetryModal({ isOpen, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     title: "",
     type: "",
     content: "",
   });
+
+  const { user } = useUser();
 
   const poetryTypes = [
     "Love",
