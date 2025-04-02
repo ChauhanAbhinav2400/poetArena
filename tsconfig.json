@@ -40,6 +40,6 @@
     "components/home/TopPoets.jsx",
     "components/home/TrendingShayaris.jsx",
     "app/auth/set-password/page.jsx"
-  ],
+, "app/about-us/page.jsx"  ],
   "exclude": ["node_modules"]
 }
