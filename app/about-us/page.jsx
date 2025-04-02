@@ -56,20 +56,21 @@ export async function generateMetadata() {
 
 const AboutUs = () => {
   const team = [
-    {
-      name: "Priya Sharma",
-      role: "Creative Director",
-      image: "https://i.ibb.co/3m6Dd9b5/abhinav-photo-mysore.jpg", // Replace with actual image path
-    },
+    // {
+    //   name: "Priya Sharma",
+    //   role: "Creative Director",
+    //   image: "https://i.ibb.co/3m6Dd9b5/abhinav-photo-mysore.jpg", // Replace with actual image path
+    // },
     {
       name: "Abhinav Chauhan",
-      role: "Tech Innovator",
-      image: "https://i.ibb.co/3m6Dd9b5/abhinav-photo-mysore.jpg", // Replace with actual image path
+      role: "Founder",
+      image: "https://i.ibb.co/PGtHzbq6/abhinav-professional-photo.png", // Replace with actual image path
     },
     {
       name: "Dishant Chauhan",
       role: "Tech Innovator",
-      image: "https://i.ibb.co/3m6Dd9b5/abhinav-photo-mysore.jpg", // Replace with actual image path
+      image:
+        "https://i.ibb.co/Fbp34kjS/Whats-App-Image-2025-04-02-at-16-15-33.jpg", // Replace with actual image path
     },
   ];
 
@@ -170,7 +171,7 @@ const AboutUs = () => {
           <h2 className="text-3xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-600">
             Our Team
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {team.map((member, index) => (
               <div
                 key={index}

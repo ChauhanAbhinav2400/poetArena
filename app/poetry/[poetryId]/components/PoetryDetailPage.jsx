@@ -10,7 +10,6 @@ import {
 import CommentSection from "./CommentSection";
 import CommentInput from "./CommentInput";
 import PoetryActions from "./ProblemActions";
-import { useUser } from "../../../../hooks/useUser";
 import { getItem } from "../../../../lib/localStorage";
 import { colors } from "../../../../components/style/theme";
 import RecommendedShayris from "./RecommendedShayris";
@@ -25,7 +24,7 @@ export default function PoetryDetailPage() {
   const [poetry, setPoetry] = useState(null);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useUser();
+
   const [recommendedShayris, setRecommendedShayris] = useState([]);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -258,7 +257,7 @@ export default function PoetryDetailPage() {
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-white mb-6">Comments</h2>
 
-          <CommentInput onSubmit={handleAddComment} user={user} />
+          <CommentInput onSubmit={handleAddComment} />
 
           <div className="mt-6">
             <CommentSection comments={comments} />

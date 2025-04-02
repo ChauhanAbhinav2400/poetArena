@@ -9,7 +9,7 @@ import {
 import PoetryCard from "./ProblemCard";
 import AddPoetryModal from "./AddProblemModal";
 import FilterBar from "./FilterBar";
-import { useUser } from "../../../hooks/useUser";
+
 import { getItem } from "../../../lib/localStorage";
 import { toast } from "react-toastify";
 import { colors } from "../../../components/style/theme";
@@ -20,7 +20,6 @@ const PoetryPage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState({ type: "all" });
-  const { user } = useUser();
 
   const handleForm = (e) => {
     const { name, value } = e.target;
@@ -143,6 +142,7 @@ const PoetryPage = () => {
       toast.error("Failed to post poetry");
     }
   }
+
   return (
     <div>
       <div
@@ -205,12 +205,13 @@ const PoetryPage = () => {
       </div>
 
       {/* Add Poetry Modal */}
-      <AddPoetryModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddPoetry}
-        user={user}
-      />
+      {isAddModalOpen && (
+        <AddPoetryModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onSubmit={handleAddPoetry}
+        />
+      )}
     </div>
   );
 };
