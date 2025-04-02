@@ -1,9 +1,12 @@
 "use client";
 import { useState } from "react";
 import { colors } from "../../../../components/style/theme";
+import { useUser } from "../../../../hooks/useUser";
 
-export default function CommentInput({ onSubmit, user }) {
+export default function CommentInput({ onSubmit }) {
   const [content, setContent] = useState("");
+
+  const { user } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();

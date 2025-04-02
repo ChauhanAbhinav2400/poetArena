@@ -9,17 +9,18 @@ import {
 import PoetryCard from "./ProblemCard";
 import AddPoetryModal from "./AddProblemModal";
 import FilterBar from "./FilterBar";
-import { useUser } from "../../../hooks/useUser";
+
 import { getItem } from "../../../lib/localStorage";
 import { toast } from "react-toastify";
 import { colors } from "../../../components/style/theme";
 import { useSearchParams } from "../../../hooks/useSearchParams";
+import { useUser } from "@/hooks/useUser";
 
 const PoetryPage = () => {
   const [poetries, setPoetries] = useState([]);
   const [input, setInput] = useState({ search: "" });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({ type: "all" });
   const { user } = useUser();
   const loaderRef = useRef(null);
@@ -106,7 +107,7 @@ const PoetryPage = () => {
         ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`
         : `${BASE_URL}${API_ENDPOINTS.GET_POETRIES_BY_TYPE}/${filters.type}?page=1&limit=50`;
     try {
-      setIsLoading(true);
+      setIsLoading(false);
       const response = await apiCall({
         method: "GET",
         url: url,
@@ -131,7 +132,7 @@ const PoetryPage = () => {
         ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`
         : `${BASE_URL}${API_ENDPOINTS.SEARCH_POETRIES}?search=${input.search}&page=1&limit=50`;
     try {
-      setIsLoading(true);
+      setIsLoading(false);
       const response = await apiCall({
         method: "GET",
         url: url,
@@ -150,7 +151,7 @@ const PoetryPage = () => {
 
   async function fetchPoetries() {
     try {
-      setIsLoading(true);
+     
       const response = await apiCall({
         method: "GET",
         url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`,
@@ -158,6 +159,7 @@ const PoetryPage = () => {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
       });
+      setIsLoading(false);
       setPoetries((prev) => [...prev, ...response?.data]);
     } catch (error) {
       console.error("Failed to fetch poetries:", error);
@@ -206,6 +208,7 @@ const PoetryPage = () => {
       toast.error("Failed to post poetry");
     }
   }
+
   return (
     <div>
       <div
@@ -275,12 +278,13 @@ const PoetryPage = () => {
       </div>
 
       {/* Add Poetry Modal */}
-      <AddPoetryModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onSubmit={handleAddPoetry}
-        user={user}
-      />
+      {isAddModalOpen && (
+        <AddPoetryModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onSubmit={handleAddPoetry}
+        />
+      )}
     </div>
   );
 };
