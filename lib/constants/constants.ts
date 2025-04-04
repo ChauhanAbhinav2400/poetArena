@@ -65,7 +65,7 @@ export const API_ENDPOINTS = {
   GET_METADATA: "metadata",
 };
 
-export const BASE_URL = "http://localhost:5000/api/";
-// export const BASE_URL = "https://api.whmtrends.in/api/";
+// export const BASE_URL = "http://localhost:5000/api/";
+export const BASE_URL = "https://api.whmtrends.in/api/";
 // Token key for localStorage
 export const TOKEN_KEY = "solution_token";
