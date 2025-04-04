@@ -75,7 +75,6 @@ const COUNTRY_OPTIONS = [
 ];
 
 export default function SignupPage() {
- 
   const [step, setStep] = useState<Step>("details");
   const [formData, setFormData] = useState({
     fullName: "",
