@@ -9,105 +9,88 @@ import {
 import PoetryCard from "./ProblemCard";
 import AddPoetryModal from "./AddProblemModal";
 import FilterBar from "./FilterBar";
-
 import { getItem } from "../../../lib/localStorage";
 import { toast } from "react-toastify";
 import { colors } from "../../../components/style/theme";
 import { useSearchParams } from "../../../hooks/useSearchParams";
-import { useUser } from "@/hooks/useUser";
 
 const PoetryPage = () => {
   const [poetries, setPoetries] = useState([]);
   const [input, setInput] = useState({ search: "" });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start as false
   const [filters, setFilters] = useState({ type: "all" });
-  const { user } = useUser();
   const loaderRef = useRef(null);
-
-  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
-  const [incres, setIncres] = useState(0);
   const [pagination, setPagination] = useState({
     total: 0,
     page: 0,
     pages: 0,
   });
 
-  useEffect(() => {
-    const pageParam = parseInt(searchParams.get("page")) || 0;
-    setPage(pageParam);
-  }, [searchParams]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    if (incres >= 1 && page < pagination.total - 1) {
-      const nextPage = incres;
-      setSearchParams({ page: nextPage+1 });
-    }
-  }, [incres]);
-
-  useEffect(() => {
-    if (page < pagination.total - 1) {
-      setPage((prev) => prev + 1);
-    }
-  }, [incres]);
-
-
-
-  // Intersection Observer callback
-  const handleObserver = (entries) => {
-    const target = entries[0];
-    if (target.isIntersecting && !isLoading) {
-      setIncres((prev) => prev + 1);
-    }
-  };
-
-  // Set up Intersection Observer
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5, // Trigger when 60% of the loader element is visible
-    };
-
-    const observer = new IntersectionObserver(handleObserver, options);
-
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
-    // Cleanup the observer
-    return () => {
-      if (loaderRef.current) observer.unobserve(loaderRef.current);
-    };
-  }, [isLoading]);
-
+  // Handle form input changes
   const handleForm = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
 
+  // Fetch poetries when page changes (for infinite scroll)
   useEffect(() => {
-    fetchPoetries();
+    if (filters.type === "all") {
+      fetchPoetries();
+    } else {
+      fetchPoetriesByType();
+    }
   }, [page]);
 
+  // Reset and fetch when filters change
   useEffect(() => {
-    setPage(1)
+    setPoetries([]); // Clear existing poetries
+    setPage(1); // Reset to page 1
     fetchPoetriesByType();
   }, [filters]);
 
+  // Reset and fetch when search input changes
   useEffect(() => {
-    setPage(1)
+    setPoetries([]); // Clear existing poetries
+    setPage(1); // Reset to page 1
     fetchPoetriesBySearch();
   }, [input.search]);
 
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const target = entries[0];
+      if (target.isIntersecting && !isLoading && page < pagination.pages) {
+        setPage((prev) => prev + 1); // Increment page to fetch next set
+      }
+    }, options);
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [isLoading, pagination.pages]);
+
+  // Fetch poetries by type
   async function fetchPoetriesByType() {
     const url =
       filters.type === "all"
-        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`
-        : `${BASE_URL}${API_ENDPOINTS.GET_POETRIES_BY_TYPE}/${filters.type}?page=1&limit=50`;
+        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=10`
+        : `${BASE_URL}${API_ENDPOINTS.GET_POETRIES_BY_TYPE}/${filters.type}?page=${page}&limit=10`;
     try {
-      setIsLoading(false);
+      setIsLoading(true);
       const response = await apiCall({
         method: "GET",
         url: url,
@@ -116,23 +99,24 @@ const PoetryPage = () => {
         },
       });
 
-      setPagination(response?.pagination);
-      setPoetries(response.data || []);
+      setPagination(response?.pagination || { total: 0, page: 0, pages: 0 });
+      setPoetries((prev) => [...prev, ...(response.data || [])]); // Append new data
     } catch (error) {
-      console.error("Failed to fetch poetries:", error);
+      console.error("Failed to fetch poetries by type:", error);
       toast.error("Network Problem");
     } finally {
       setIsLoading(false);
     }
   }
 
+  // Fetch poetries by search
   async function fetchPoetriesBySearch() {
     const url =
       input.search === ""
-        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`
-        : `${BASE_URL}${API_ENDPOINTS.SEARCH_POETRIES}?search=${input.search}&page=1&limit=50`;
+        ? `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=10`
+        : `${BASE_URL}${API_ENDPOINTS.SEARCH_POETRIES}?search=${input.search}&page=${page}&limit=10`;
     try {
-      setIsLoading(false);
+      setIsLoading(true);
       const response = await apiCall({
         method: "GET",
         url: url,
@@ -140,27 +124,28 @@ const PoetryPage = () => {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
       });
-      setPoetries(response.data || []);
+      setPoetries((prev) => [...prev, ...(response.data || [])]); // Append new data
     } catch (error) {
-      console.error("Failed to fetch poetries:", error);
+      console.error("Failed to fetch poetries by search:", error);
       toast.error("Network Problem");
     } finally {
       setIsLoading(false);
     }
   }
 
+  // Fetch poetries for infinite scroll
   async function fetchPoetries() {
     try {
-     
+      setIsLoading(true);
       const response = await apiCall({
         method: "GET",
-        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=50`,
+        url: `${BASE_URL}${API_ENDPOINTS.GET_POETRIES}?page=${page}&limit=10`,
         headers: {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
       });
-      setIsLoading(false);
-      setPoetries((prev) => [...prev, ...response?.data]);
+      setPagination(response?.pagination || { total: 0, page: 0, pages: 0 });
+      setPoetries((prev) => [...prev, ...(response?.data || [])]); // Append new data
     } catch (error) {
       console.error("Failed to fetch poetries:", error);
       toast.error("Network Problem");
@@ -169,6 +154,7 @@ const PoetryPage = () => {
     }
   }
 
+  // Handle like/dislike
   async function handleLikeDislike(poetryId, action) {
     try {
       const endpoint =
@@ -183,6 +169,7 @@ const PoetryPage = () => {
           Authorization: `Bearer ${getItem(TOKEN_KEY)}`,
         },
       });
+      // Optionally refetch or update the specific poetry item
       fetchPoetries();
     } catch (error) {
       console.error(`Failed to ${action} poetry:`, error);
@@ -190,6 +177,7 @@ const PoetryPage = () => {
     }
   }
 
+  // Handle adding new poetry
   async function handleAddPoetry(poetryData) {
     try {
       await apiCall({
@@ -205,7 +193,7 @@ const PoetryPage = () => {
       fetchPoetries();
     } catch (error) {
       console.error("Failed to add poetry:", error);
-      toast.error("Failed to post poetry");
+      toast.error("Failed to post poetry  poetry");
     }
   }
 
@@ -217,7 +205,7 @@ const PoetryPage = () => {
           background: `linear-gradient(to right, ${colors.darkPurple}, ${colors.darkPink})`,
         }}
       >
-        <div className="container  mx-auto px-4">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Shayriमंच Community
@@ -237,7 +225,7 @@ const PoetryPage = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="container bg-gray-800 mx-auto px-4 py-8 ">
+      <div className="container bg-gray-800 mx-auto px-4 py-8">
         <FilterBar
           filters={filters}
           setFilters={setFilters}
@@ -248,27 +236,27 @@ const PoetryPage = () => {
 
       {/* Poetries Grid */}
       <div className="container bg-gray-800 mx-auto px-4 py-8">
-        {isLoading ? (
-          <div className="flex bg-gray-800 justify-center py-20">
-            <div
-              className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"
-              style={{ borderColor: colors.lightPurple }}
-            ></div>
-          </div>
+        {poetries.length === 0 && !isLoading ? (
+          <p className="text-center text-white">No poetries found.</p>
         ) : (
-          <div className="flex flex-wrap  justify-center items-center gap-14">
-            {poetries?.map((poetry, index) => (
+          <div className="flex flex-wrap justify-center items-center gap-14">
+            {poetries.map((poetry, index) => (
               <PoetryCard
                 key={poetry?._id}
                 poetry={poetry}
                 onLike={() => handleLikeDislike(poetry?._id, "like")}
                 onDislike={() => handleLikeDislike(poetry?._id, "dislike")}
-                cardStyle={index % 6} // Cycle through 6 card styles
+                cardStyle={index % 6}
               />
             ))}
-            {isLoading && <p>Loading...</p>}
-
-            {/* The div that will trigger loading more articles */}
+            {isLoading && (
+              <div className="flex justify-center py-20 w-full">
+                <div
+                  className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"
+                  style={{ borderColor: colors.lightPurple }}
+                ></div>
+              </div>
+            )}
             <div
               ref={loaderRef}
               style={{ height: "20px", background: "transparent" }}
